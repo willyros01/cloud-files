@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color"
+          content="#222222">
+
+    <title>My Cloud Files</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f3f4f6;
+            color: #222;
+        }
+
+        header {
+            background: #222;
+            color: white;
+            padding: 18px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 700px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 10px;
+            background: #1769e0;
+            color: white;
+            font-size: 17px;
+        }
+
+        button:active {
+            opacity: 0.7;
+        }
+
+        .status {
+            background: #eef1f5;
+            padding: 14px;
+            border-radius: 10px;
+            line-height: 1.5;
+        }
+
+        .instructions {
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+    My Cloud Files
+</header>
+
+<main>
+
+    <div class="card">
+
+        <h2>iCloud Drive</h2>
+
+        <div class="instructions">
+
+            <p>
+                This prototype tests access to iCloud Drive
+                from the Fire HD 8.
+            </p>
+
+            <p>
+                Apple handles the iCloud login and security
+                verification.
+            </p>
+
+        </div>
+
+        <button onclick="openICloud()">
+            Open iCloud Drive
+        </button>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Download Test</h2>
+
+        <p class="instructions">
+            This creates a small test file and asks Silk
+            to download it.
+        </p>
+
+        <button onclick="downloadTestFile()">
+            Download Test File
+        </button>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Status</h2>
+
+        <div id="status" class="status">
+            Ready.
+        </div>
+
+    </div>
+
+</main>
+
+
+<script>
+
+function openICloud() {
+
+    document.getElementById("status").innerHTML =
+        "Opening iCloud Drive...";
+
+    window.open(
+        "https://www.icloud.com/iclouddrive/",
+        "_blank"
+    );
+}
+
+
+function downloadTestFile() {
+
+    const contents =
+        "Silk JavaScript Download Test\n\n" +
+        "This file was created by the My Cloud Files prototype.\n" +
+        "If you can find this file on the Fire HD 8,\n" +
+        "the browser download mechanism is working.\n";
+
+    const blob = new Blob(
+        [contents],
+        { type: "text/plain" }
+    );
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+
+    link.href = url;
+
+    link.download = "silk-download-test.txt";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+    setTimeout(function() {
+
+        URL.revokeObjectURL(url);
+
+    }, 1000);
+
+    document.getElementById("status").innerHTML =
+        "Download requested: " +
+        "<b>silk-download-test.txt</b>";
+}
+
+</script>
+
+</body>
+
+</html>
