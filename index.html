@@ -70,14 +70,25 @@
             background: #eef1f5;
             padding: 14px;
             border-radius: 10px;
-            line-height: 1.5;
+            line-height: 1.6;
+            word-break: break-word;
         }
 
-        .instructions {
-            line-height: 1.6;
+        .file-info {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f7f7f7;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .success {
+            color: #137333;
+            font-weight: bold;
         }
 
     </style>
+
 </head>
 
 <body>
@@ -86,25 +97,20 @@
     My Cloud Files
 </header>
 
+
 <main>
+
+
+    <!-- iCloud -->
 
     <div class="card">
 
-        <h2>iCloud Drive</h2>
+        <h2> iCloud Drive</h2>
 
-        <div class="instructions">
-
-            <p>
-                This prototype tests access to iCloud Drive
-                from the Fire HD 8.
-            </p>
-
-            <p>
-                Apple handles the iCloud login and security
-                verification.
-            </p>
-
-        </div>
+        <p>
+            Open your existing iCloud files using Apple's
+            web interface.
+        </p>
 
         <button onclick="openICloud()">
             Open iCloud Drive
@@ -113,21 +119,35 @@
     </div>
 
 
+    <!-- Local File -->
+
     <div class="card">
 
-        <h2>Download Test</h2>
+        <h2>📂 Fire Storage</h2>
 
-        <p class="instructions">
-            This creates a small test file and asks Silk
-            to download it.
+        <p>
+            Select a file that has already been downloaded
+            to the Fire HD 8.
         </p>
 
-        <button onclick="downloadTestFile()">
-            Download Test File
+        <button onclick="selectFile()">
+            Select a File
         </button>
+
+        <div id="fileInfo" class="file-info">
+
+            <div id="fileName"></div>
+
+            <div id="fileSize"></div>
+
+            <div id="fileType"></div>
+
+        </div>
 
     </div>
 
+
+    <!-- Status -->
 
     <div class="card">
 
@@ -139,15 +159,22 @@
 
     </div>
 
+
 </main>
 
 
 <script>
 
+
+/*
+    Open Apple's iCloud Drive web interface
+*/
+
 function openICloud() {
 
-    document.getElementById("status").innerHTML =
-        "Opening iCloud Drive...";
+    setStatus(
+        "Opening iCloud Drive..."
+    );
 
     window.open(
         "https://www.icloud.com/iclouddrive/",
@@ -156,43 +183,165 @@ function openICloud() {
 }
 
 
-function downloadTestFile() {
 
-    const contents =
-        "Silk JavaScript Download Test\n\n" +
-        "This file was created by the My Cloud Files prototype.\n" +
-        "If you can find this file on the Fire HD 8,\n" +
-        "the browser download mechanism is working.\n";
+/*
+    Ask Silk to let the user choose a local file.
+*/
 
-    const blob = new Blob(
-        [contents],
-        { type: "text/plain" }
+function selectFile() {
+
+    setStatus(
+        "Opening the Fire file picker..."
     );
 
-    const url = URL.createObjectURL(blob);
+    const input =
+        document.createElement("input");
 
-    const link = document.createElement("a");
+    input.type = "file";
 
-    link.href = url;
+    /*
+        We don't restrict the file type.
+        The user can select PDF, TXT, JPG, etc.
+    */
 
-    link.download = "silk-download-test.txt";
+    input.accept = "*/*";
 
-    document.body.appendChild(link);
 
-    link.click();
+    input.onchange = function(event) {
 
-    document.body.removeChild(link);
+        const files = event.target.files;
 
-    setTimeout(function() {
+        if (!files || files.length === 0) {
 
-        URL.revokeObjectURL(url);
+            setStatus(
+                "No file was selected."
+            );
 
-    }, 1000);
+            return;
+        }
 
-    document.getElementById("status").innerHTML =
-        "Download requested: " +
-        "<b>silk-download-test.txt</b>";
+
+        const file = files[0];
+
+
+        /*
+            Display information about the
+            selected file.
+        */
+
+        document.getElementById(
+            "fileName"
+        ).innerHTML =
+            "<b>Name:</b> " +
+            escapeHtml(file.name);
+
+
+        document.getElementById(
+            "fileSize"
+        ).innerHTML =
+            "<b>Size:</b> " +
+            formatBytes(file.size);
+
+
+        document.getElementById(
+            "fileType"
+        ).innerHTML =
+            "<b>Type:</b> " +
+            (file.type || "Unknown");
+
+
+        document.getElementById(
+            "fileInfo"
+        ).style.display = "block";
+
+
+        setStatus(
+            '<span class="success">' +
+            "File successfully received by JavaScript." +
+            "</span>"
+        );
+
+    };
+
+
+    /*
+        Trigger the Fire/Silk file picker.
+    */
+
+    input.click();
+
 }
+
+
+
+/*
+    Convert bytes into a readable size.
+*/
+
+function formatBytes(bytes) {
+
+    if (bytes === 0) {
+        return "0 Bytes";
+    }
+
+    const units = [
+        "Bytes",
+        "KB",
+        "MB",
+        "GB"
+    ];
+
+    const index =
+        Math.floor(
+            Math.log(bytes) /
+            Math.log(1024)
+        );
+
+    return (
+        parseFloat(
+            (
+                bytes /
+                Math.pow(1024, index)
+            ).toFixed(2)
+        )
+        + " "
+        + units[index]
+    );
+
+}
+
+
+
+/*
+    Prevent accidental HTML injection
+    when displaying the filename.
+*/
+
+function escapeHtml(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+
+}
+
+
+
+/*
+    Update status display.
+*/
+
+function setStatus(message) {
+
+    document.getElementById(
+        "status"
+    ).innerHTML = message;
+
+}
+
 
 </script>
 
