@@ -1,350 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <meta name="theme-color"
-          content="#222222">
-
-    <title>My Cloud Files</title>
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f3f4f6;
-            color: #222;
-        }
-
-        header {
-            background: #222;
-            color: white;
-            padding: 18px;
-            font-size: 22px;
-            font-weight: bold;
-        }
-
-        main {
-            max-width: 700px;
-            margin: auto;
-            padding: 20px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 14px;
-            padding: 20px;
-            margin-bottom: 18px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-        }
-
-        h2 {
-            margin-top: 0;
-        }
-
-        button {
-            width: 100%;
-            padding: 16px;
-            margin-top: 10px;
-            border: none;
-            border-radius: 10px;
-            background: #1769e0;
-            color: white;
-            font-size: 17px;
-        }
-
-        button:active {
-            opacity: 0.7;
-        }
-
-        .status {
-            background: #eef1f5;
-            padding: 14px;
-            border-radius: 10px;
-            line-height: 1.6;
-            word-break: break-word;
-        }
-
-        .file-info {
-            margin-top: 15px;
-            padding: 15px;
-            background: #f7f7f7;
-            border-radius: 10px;
-            display: none;
-        }
-
-        .success {
-            color: #137333;
-            font-weight: bold;
-        }
-
-    </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#202124">
+<title>My Cloud Files</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f3f4f6;color:#202124}header{background:#202124;color:#fff;padding:18px;font-size:22px;font-weight:700}main{max-width:720px;margin:auto;padding:18px}.card{background:#fff;border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.12)}h2{margin:0 0 10px}button{width:100%;padding:15px;margin-top:9px;border:0;border-radius:10px;background:#1769e0;color:#fff;font-size:17px}button:disabled{opacity:.45}.secondary{background:#e8eaed;color:#202124}.danger{background:#b3261e}.status{background:#eef1f5;padding:13px;border-radius:10px;line-height:1.5;word-break:break-word}.file{margin-top:14px;padding:14px;background:#f7f7f7;border-radius:10px;display:none;line-height:1.6}.ok{font-weight:700}.small{font-size:13px;color:#5f6368}.hidden{display:none}
+</style>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
-
 <body>
-
-<header>
-    My Cloud Files
-</header>
-
-
+<header>My Cloud Files</header>
 <main>
+<div class="card">
+<h2> iCloud Drive</h2>
+<p>Open your existing iCloud Drive files using Apple's web interface.</p>
+<button id="icloudBtn">Open iCloud Drive</button>
+</div>
 
+<div class="card">
+<h2>📂 Fire Storage</h2>
+<p>Select a file downloaded to the Fire HD 8.</p>
+<button id="selectBtn">Select a File</button>
+<div id="fileInfo" class="file"></div>
+</div>
 
-    <!-- iCloud -->
+<div class="card">
+<h2>☁ Google Drive</h2>
+<p class="small">First configure the Google OAuth Client ID in this file. Do not put a client secret here.</p>
+<button id="googleBtn">Connect Google Drive</button>
+<button id="uploadBtn" disabled>Upload Selected File to Google Drive</button>
+<button id="signoutBtn" class="secondary" disabled>Disconnect Google Drive</button>
+</div>
 
-    <div class="card">
-
-        <h2> iCloud Drive</h2>
-
-        <p>
-            Open your existing iCloud files using Apple's
-            web interface.
-        </p>
-
-        <button onclick="openICloud()">
-            Open iCloud Drive
-        </button>
-
-    </div>
-
-
-    <!-- Local File -->
-
-    <div class="card">
-
-        <h2>📂 Fire Storage</h2>
-
-        <p>
-            Select a file that has already been downloaded
-            to the Fire HD 8.
-        </p>
-
-        <button onclick="selectFile()">
-            Select a File
-        </button>
-
-        <div id="fileInfo" class="file-info">
-
-            <div id="fileName"></div>
-
-            <div id="fileSize"></div>
-
-            <div id="fileType"></div>
-
-        </div>
-
-    </div>
-
-
-    <!-- Status -->
-
-    <div class="card">
-
-        <h2>Status</h2>
-
-        <div id="status" class="status">
-            Ready.
-        </div>
-
-    </div>
-
-
+<div class="card">
+<h2>Status</h2>
+<div id="status" class="status">Ready.</div>
+</div>
 </main>
 
-
 <script>
+// ============================================================
+// 1. PUT YOUR GOOGLE WEB CLIENT ID HERE
+// ============================================================
+const GOOGLE_CLIENT_ID = 'PASTE_YOUR_WEB_CLIENT_ID_HERE.apps.googleusercontent.com';
 
+// Least-privilege scope for this prototype. Google documents drive.file
+// as allowing the app to work with files it creates/uses.
+const DRIVE_SCOPE = 'https://www.googleapis.com/auth/drive.file';
 
-/*
-    Open Apple's iCloud Drive web interface
-*/
+let tokenClient = null;
+let accessToken = null;
+let selectedFile = null;
 
-function openICloud() {
+const $ = id => document.getElementById(id);
 
-    setStatus(
-        "Opening iCloud Drive..."
-    );
+function status(message){ $('status').innerHTML = message; }
 
-    window.open(
-        "https://www.icloud.com/iclouddrive/",
-        "_blank"
-    );
-}
+$('icloudBtn').onclick = () => {
+  status('Opening iCloud Drive in Silk...');
+  window.open('https://www.icloud.com/iclouddrive/', '_blank');
+};
 
+$('selectBtn').onclick = () => {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '*/*';
+  input.onchange = e => {
+    selectedFile = e.target.files && e.target.files[0];
+    if(!selectedFile){ status('No file selected.'); return; }
+    $('fileInfo').style.display = 'block';
+    $('fileInfo').innerHTML =
+      '<b>Name:</b> ' + escapeHtml(selectedFile.name) + '<br>' +
+      '<b>Size:</b> ' + formatBytes(selectedFile.size) + '<br>' +
+      '<b>Type:</b> ' + escapeHtml(selectedFile.type || 'application/octet-stream');
+    $('uploadBtn').disabled = !accessToken;
+    status('<span class="ok">File received by JavaScript.</span> ' + escapeHtml(selectedFile.name));
+  };
+  input.click();
+};
 
-
-/*
-    Ask Silk to let the user choose a local file.
-*/
-
-function selectFile() {
-
-    setStatus(
-        "Opening the Fire file picker..."
-    );
-
-    const input =
-        document.createElement("input");
-
-    input.type = "file";
-
-    /*
-        We don't restrict the file type.
-        The user can select PDF, TXT, JPG, etc.
-    */
-
-    input.accept = "*/*";
-
-
-    input.onchange = function(event) {
-
-        const files = event.target.files;
-
-        if (!files || files.length === 0) {
-
-            setStatus(
-                "No file was selected."
-            );
-
-            return;
+function initGoogle(){
+  if(GOOGLE_CLIENT_ID.startsWith('PASTE_')){
+    status('Google is not configured yet. Add your Web OAuth Client ID to GOOGLE_CLIENT_ID in index.html, then reload.');
+    return;
+  }
+  if(!window.google || !google.accounts || !google.accounts.oauth2){
+    status('Google Identity Services is still loading. Wait a few seconds and try again.');
+    return;
+  }
+  if(!tokenClient){
+    tokenClient = google.accounts.oauth2.initTokenClient({
+      client_id: GOOGLE_CLIENT_ID,
+      scope: DRIVE_SCOPE,
+      callback: response => {
+        if(response.error){
+          status('Google authorization failed: ' + escapeHtml(response.error));
+          return;
         }
-
-
-        const file = files[0];
-
-
-        /*
-            Display information about the
-            selected file.
-        */
-
-        document.getElementById(
-            "fileName"
-        ).innerHTML =
-            "<b>Name:</b> " +
-            escapeHtml(file.name);
-
-
-        document.getElementById(
-            "fileSize"
-        ).innerHTML =
-            "<b>Size:</b> " +
-            formatBytes(file.size);
-
-
-        document.getElementById(
-            "fileType"
-        ).innerHTML =
-            "<b>Type:</b> " +
-            (file.type || "Unknown");
-
-
-        document.getElementById(
-            "fileInfo"
-        ).style.display = "block";
-
-
-        setStatus(
-            '<span class="success">' +
-            "File successfully received by JavaScript." +
-            "</span>"
-        );
-
-    };
-
-
-    /*
-        Trigger the Fire/Silk file picker.
-    */
-
-    input.click();
-
+        accessToken = response.access_token;
+        $('uploadBtn').disabled = !selectedFile;
+        $('signoutBtn').disabled = false;
+        status('<span class="ok">Google Drive connected.</span> Select a file and tap Upload.');
+      }
+    });
+  }
+  tokenClient.requestAccessToken({prompt: accessToken ? '' : 'consent'});
 }
 
+$('googleBtn').onclick = initGoogle;
 
+$('uploadBtn').onclick = async () => {
+  if(!selectedFile){ status('Select a file first.'); return; }
+  if(!accessToken){ status('Connect Google Drive first.'); return; }
+  $('uploadBtn').disabled = true;
+  status('Uploading <b>' + escapeHtml(selectedFile.name) + '</b> to Google Drive...');
+  try{
+    const result = await uploadFileMultipart(selectedFile, accessToken);
+    status('<span class="ok">Upload successful.</span><br>Google Drive file ID: ' + escapeHtml(result.id || 'unknown'));
+  }catch(err){
+    console.error(err);
+    status('<b>Upload failed:</b> ' + escapeHtml(err.message || String(err)));
+  }finally{
+    $('uploadBtn').disabled = !selectedFile || !accessToken;
+  }
+};
 
-/*
-    Convert bytes into a readable size.
-*/
+$('signoutBtn').onclick = () => {
+  if(accessToken && window.google && google.accounts && google.accounts.oauth2){
+    google.accounts.oauth2.revoke(accessToken, () => {
+      accessToken = null;
+      $('uploadBtn').disabled = true;
+      $('signoutBtn').disabled = true;
+      status('Google Drive disconnected.');
+    });
+  }
+};
 
-function formatBytes(bytes) {
-
-    if (bytes === 0) {
-        return "0 Bytes";
-    }
-
-    const units = [
-        "Bytes",
-        "KB",
-        "MB",
-        "GB"
-    ];
-
-    const index =
-        Math.floor(
-            Math.log(bytes) /
-            Math.log(1024)
-        );
-
-    return (
-        parseFloat(
-            (
-                bytes /
-                Math.pow(1024, index)
-            ).toFixed(2)
-        )
-        + " "
-        + units[index]
-    );
-
+async function uploadFileMultipart(file, token){
+  const boundary = 'cloud_files_' + Date.now();
+  const metadata = {name:file.name, mimeType:file.type || 'application/octet-stream'};
+  const delimiter = '\r\n--' + boundary + '\r\n';
+  const closeDelimiter = '\r\n--' + boundary + '--';
+  const body = new Blob([
+    '--' + boundary + '\r\n',
+    'Content-Type: application/json; charset=UTF-8\r\n\r\n',
+    JSON.stringify(metadata),
+    delimiter,
+    'Content-Type: ' + (file.type || 'application/octet-stream') + '\r\n\r\n',
+    file,
+    closeDelimiter
+  ]);
+  const response = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name,mimeType,size', {
+    method:'POST',
+    headers:{
+      'Authorization':'Bearer ' + token,
+      'Content-Type':'multipart/related; boundary=' + boundary
+    },
+    body
+  });
+  if(response.status === 401){
+    accessToken = null;
+    throw new Error('Google authorization expired. Tap Connect Google Drive again.');
+  }
+  if(!response.ok){
+    const text = await response.text();
+    throw new Error('Google Drive returned HTTP ' + response.status + ': ' + text);
+  }
+  return response.json();
 }
 
-
-
-/*
-    Prevent accidental HTML injection
-    when displaying the filename.
-*/
-
-function escapeHtml(text) {
-
-    const div =
-        document.createElement("div");
-
-    div.textContent = text;
-
-    return div.innerHTML;
-
+function formatBytes(bytes){
+  if(bytes===0) return '0 Bytes';
+  const units=['Bytes','KB','MB','GB','TB'];
+  const i=Math.floor(Math.log(bytes)/Math.log(1024));
+  return parseFloat((bytes/Math.pow(1024,i)).toFixed(2))+' '+units[i];
 }
-
-
-
-/*
-    Update status display.
-*/
-
-function setStatus(message) {
-
-    document.getElementById(
-        "status"
-    ).innerHTML = message;
-
+function escapeHtml(text){
+  const div=document.createElement('div');
+  div.textContent=text;
+  return div.innerHTML;
 }
-
-
 </script>
-
 </body>
-
 </html>
