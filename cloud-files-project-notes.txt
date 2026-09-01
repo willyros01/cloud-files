@@ -1,13 +1,13 @@
-CLOUD FILES v1.6.4 — SILK BACK/LOCAL FILES RETURN FIX
+CLOUD FILES v1.6.6 — RESTORED FIRE NATIVE LOCAL PICKER
 Date: 2026-09-01
 
-FIX
-- v1.6.3 stored the correct Local Files return target but depended on the page script rerunning.
-- Silk may restore Cloud Files from its back/forward cache, so the startup code may not rerun.
-- v1.6.4 listens for the browser pageshow event.
-- After Download -> iCloud -> Fire browser Back, Cloud Files now checks the pending return target and opens Local Files.
-- Local Files again presents the Browse Local Files button that opens the Fire native file picker.
+CHANGE
+- Restored the proven v1.5.1-style native Fire file picker behavior.
+- Download screen now has "Open Local Files Browser".
+- That button directly launches the Fire/Silk native file picker.
+- After a file is selected, Cloud Files opens the Local Files screen and displays the selected file details.
+- This avoids depending on automatic browser Back behavior that produced blank screens.
+- iCloud remains separate because Apple's page cannot signal Cloud Files when a download is complete.
 - No Recent Files history was reintroduced.
-- Local Files remains a browser/check utility only and does not upload to iCloud.
-- Downloaded files normally appear in the Fire/Silk Downloads location.
-- Version: 1.6.4.
+- Local Files remains a browser/check utility only.
+- Version: 1.6.6.

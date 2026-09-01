@@ -286,7 +286,7 @@ main{overflow:visible}
     <span class="chev">›</span>
   </button>
 
-  <div class="version">Cloud Files v1.6.4</div>
+  <div class="version">Cloud Files v1.6.6</div>
 </section>
 
 <section id="uploadPage" class="page">
@@ -306,9 +306,9 @@ main{overflow:visible}
       </ol>
     </div>
     <button class="primaryBtn transferOpen" id="openUploadIcloud">Open iCloud Drive</button>
-    <p class="externalNote">Apple's webpage controls the upload. Use the Fire browser Back control to return to Cloud Files.</p>
+    <p class="externalNote">iCloud opens in a separate Silk tab so Cloud Files stays open. Switch back to the Cloud Files tab when finished.</p>
   </div>
-  <div class="version">Cloud Files v1.6.4</div>
+  <div class="version">Cloud Files v1.6.6</div>
 </section>
 
 <section id="downloadPage" class="page">
@@ -327,16 +327,16 @@ main{overflow:visible}
       </ol>
     </div>
     <button class="primaryBtn transferOpen" id="openDownloadIcloud">Open iCloud Drive</button>
-    <p class="externalNote">Apple's webpage controls the download. After the file downloads, tap the Fire browser Back control. Cloud Files will return directly to Local Files.</p>
+    <button class="primaryBtn localBtn transferOpen" id="downloadLocalPicker">Open Local Files Browser</button>
+    <p class="externalNote">After downloading in iCloud, use Open Local Files Browser to launch the Fire file picker—the same native picker method used in the earlier working build.</p>
   </div>
-  <div class="version">Cloud Files v1.6.4</div>
+  <div class="version">Cloud Files v1.6.6</div>
 </section>
 
 <section id="localPage" class="page">
   <div class="pageHeader"><button class="backBtn" data-page="homePage">‹ Back</button><h2>Local Files</h2></div>
   <div class="contentCard">
-    <div class="downloadReturnNote">Downloaded from iCloud? Tap <strong>Browse Local Files</strong> below to open the Fire file picker.</div>
-    <p>Local Files is the Fire file browser/check screen. After downloading from iCloud, use Browse Local Files to open the Fire file picker and locate the downloaded file, normally in Downloads.</p>
+    <p>Local Files uses the Fire's native file picker. Use Browse Local Files to locate or confirm a downloaded file, normally in Downloads.</p>
     <button class="primaryBtn localBtn" id="pickBtn">📁 Browse Local Files</button>
     <div class="layoutBar">
       <button class="layoutBtn on" id="gridBtn">▦ Grid</button>
@@ -344,7 +344,7 @@ main{overflow:visible}
     </div>
     <div id="fileArea" class="fileArea grid"></div>
   </div>
-  <div class="version">Cloud Files v1.6.4</div>
+  <div class="version">Cloud Files v1.6.6</div>
 </section>
 
 
@@ -352,7 +352,7 @@ main{overflow:visible}
   <div class="pageHeader"><button class="backBtn" data-page="homePage">‹ Back</button><h2>About</h2></div>
   <div class="contentCard center">
     <div class="pageIcon">☁️</div><h3>Cloud Files</h3>
-    <p><strong>Version 1.6.4</strong></p>
+    <p><strong>Version 1.6.6</strong></p>
     <p>Simple access to iCloud Drive and Fire local files.</p>
     <p id="sunInfo">Automatic day/night mode uses local sunrise and sunset when location permission is available.</p>
     <p><a href="privacy.html">Privacy Policy</a></p>
@@ -380,12 +380,10 @@ document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',(
 
 
 $('openUploadIcloud').onclick=()=>{
-  sessionStorage.removeItem('cloudFilesReturnPage');
-  window.location.href='https://www.icloud.com/iclouddrive/';
+  window.open('https://www.icloud.com/iclouddrive/','icloudDrive');
 };
 $('openDownloadIcloud').onclick=()=>{
-  sessionStorage.setItem('cloudFilesReturnPage','localPage');
-  window.location.href='https://www.icloud.com/iclouddrive/';
+  window.open('https://www.icloud.com/iclouddrive/','icloudDrive');
 };
 
 
@@ -398,6 +396,21 @@ function showSelectedFile(f){
   if(!f){area.innerHTML='<div class="fileTile"><div class="fi">📄</div><div class="fileName">No file selected</div></div>';return}
   area.innerHTML=`<div class="fileTile"><div class="fi">${icon(f.name,f.type)}</div><div><div class="fileName">${esc(f.name)}</div><div class="fileMeta">${esc(f.type||'File')}</div></div><div class="fileMeta">${bytes(f.size)}</div></div>`;
 }
+
+$('downloadLocalPicker').onclick=()=>{
+  const input=document.createElement('input');
+  input.type='file';
+  input.accept='*/*';
+  input.onchange=e=>{
+    const f=e.target.files&&e.target.files[0];
+    if(f){
+      showPage('localPage');
+      showSelectedFile(f);
+    }
+  };
+  input.click();
+};
+
 $('pickBtn').onclick=()=>{
   const input=document.createElement('input');input.type='file';input.accept='*/*';
   input.onchange=e=>{const f=e.target.files&&e.target.files[0];if(f)showSelectedFile(f)};
@@ -444,15 +457,6 @@ $('themeBtn').onclick=()=>{let m=localStorage.getItem(themeKey)||'auto',n=m==='a
 
 try{localStorage.removeItem('cloudFilesRecent')}catch(e){}
 
-
-function handleIcloudReturn(){
-  const returnPage=sessionStorage.getItem('cloudFilesReturnPage');
-  if(returnPage){
-    sessionStorage.removeItem('cloudFilesReturnPage');
-    showPage(returnPage);
-  }
-}
-window.addEventListener('pageshow',()=>setTimeout(handleIcloudReturn,0));
 
 setLayout(localStorage.getItem(layoutKey)||'grid');
 
