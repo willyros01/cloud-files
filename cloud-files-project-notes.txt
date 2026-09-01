@@ -1,21 +1,23 @@
-CLOUD FILES v1.6.9 — DIRECT DOWNLOAD LAUNCH
+CLOUD FILES v1.5.1 — FIRE HD 8 COMPACT HOME
 Date: 2026-09-01
 
-PURPOSE
-Restore the interaction pattern associated with the working v1.5.1 Fire/Silk behavior.
+- Home optimized to fit on one Fire HD 8 screen.
+- iCloud Drive and Local Files remain side-by-side on tablet width with large touch targets.
+- Upload/download instructions shortened to conserve vertical space.
+- Grid/List local-file display retained.
+- Automatic sunrise/sunset Day/Night mode retained.
+- No fake iCloud file/folder/storage information.
+- iCloud Drive opens Apple's actual interface.
+- Download destination remains controlled by the Fire browser.
+- Upload destination is selected by navigating to the desired iCloud folder before Upload → Choose Files.
+- Secondary app views should use a prominent Back control; Apple's iCloud page uses browser navigation because it opens externally.
+- Google Drive remains removed.
 
-CHANGES
-- Removed the intermediate Cloud Files Download screen.
-- Home Download button now opens Apple's iCloud Drive immediately.
-- Uses the exact v1.5.1 JavaScript launch method:
-  window.open('https://www.icloud.com/iclouddrive/','_blank');
-- No automatic return logic.
-- No download-completion detection.
-- No Cloud Files attempt to open Local Files after the iCloud download.
-- The expected Fire/Silk behavior is browser-controlled:
-  after Apple downloads a file that Silk cannot directly open, Silk may show its
-  "cannot open file" prompt; continuing from that browser prompt can hand off to
-  Fire's local file browser, as observed in v1.5.1.
-- Local Files remains separately available from Home.
-- Upload guided screen remains unchanged.
-- Version: 1.6.9.
+STANDARDIZATION UPDATE
+- One UI font stack across all screens: Apple system / Segoe UI / Roboto / Helvetica / Arial fallback.
+- One unified color system across Home, Local, Recent, About, and Night Mode.
+- Primary accent: blue.
+- Secondary/local-files accent: green.
+- Consistent navy text and borders in day mode.
+- Consistent navy-based dark theme in night mode.
+- Version number displayed in the app and privacy page.
