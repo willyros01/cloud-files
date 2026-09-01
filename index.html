@@ -3,185 +3,326 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#202124">
-<title>My Cloud Files</title>
+<meta name="theme-color" content="#f7f9ff" id="themeMeta">
+<title>Cloud Files</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f3f4f6;color:#202124}header{background:#202124;color:#fff;padding:18px;font-size:22px;font-weight:700}main{max-width:720px;margin:auto;padding:18px}.card{background:#fff;border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.12)}h2{margin:0 0 10px}button{width:100%;padding:15px;margin-top:9px;border:0;border-radius:10px;background:#1769e0;color:#fff;font-size:17px}button:disabled{opacity:.45}.secondary{background:#e8eaed;color:#202124}.danger{background:#b3261e}.status{background:#eef1f5;padding:13px;border-radius:10px;line-height:1.5;word-break:break-word}.file{margin-top:14px;padding:14px;background:#f7f7f7;border-radius:10px;display:none;line-height:1.6}.ok{font-weight:700}.small{font-size:13px;color:#5f6368}.hidden{display:none}
+:root{
+  --bg:#f4f7fb;--panel:#fff;--panel2:#f7f9ff;--text:#101828;--muted:#667085;
+  --line:#e4e7ec;--blue:#1677ff;--blue2:#39a7ff;--purple:#6d43e6;--green:#15a46d;
+  --shadow:0 10px 30px rgba(23,43,77,.10);--header:rgba(255,255,255,.86)
+}
+body.night{
+  --bg:#0b1020;--panel:#131a2a;--panel2:#182237;--text:#f6f8ff;--muted:#aeb8cf;
+  --line:#26324a;--blue:#55a7ff;--blue2:#65c6ff;--purple:#9a7cff;--green:#53d89a;
+  --shadow:0 10px 30px rgba(0,0,0,.30);--header:rgba(11,16,32,.88)
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+body{transition:background .35s,color .35s}
+header{
+  position:sticky;top:0;z-index:10;background:var(--header);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line)
+}
+.topbar{max-width:920px;margin:auto;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:11px;font-size:22px;font-weight:800}
+.logo{
+  width:42px;height:42px;border-radius:13px;display:grid;place-items:center;color:white;font-size:23px;
+  background:linear-gradient(135deg,var(--blue2),var(--purple));box-shadow:var(--shadow)
+}
+.modeBadge{font-size:12px;color:var(--muted);text-align:right}
+main{max-width:920px;margin:auto;padding:18px 18px 36px}
+.hero{
+  padding:20px;border-radius:22px;background:
+  radial-gradient(circle at 90% 0%,rgba(111,92,255,.18),transparent 36%),
+  radial-gradient(circle at 0% 100%,rgba(44,170,255,.16),transparent 36%),var(--panel);
+  box-shadow:var(--shadow);border:1px solid var(--line);margin-bottom:18px
+}
+.hero h1{margin:0 0 6px;font-size:28px}
+.hero p{margin:0;color:var(--muted);line-height:1.5}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.actionCard{
+  background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px;
+  box-shadow:var(--shadow)
+}
+.iconBox{width:58px;height:58px;border-radius:17px;display:grid;place-items:center;font-size:31px;margin-bottom:13px}
+.cloudIcon{background:linear-gradient(135deg,#cfefff,#dce5ff)}
+.folderIcon{background:linear-gradient(135deg,#eadcff,#d9cbff)}
+.actionCard h2{font-size:20px;margin:0 0 6px}
+.actionCard p{color:var(--muted);margin:0 0 14px;line-height:1.45;font-size:14px}
+button{
+  border:0;border-radius:12px;padding:14px 16px;font-size:16px;font-weight:700;cursor:pointer;
+  min-height:50px
+}
+.primary{width:100%;color:#fff;background:linear-gradient(135deg,var(--blue),#075bd8)}
+.purple{width:100%;color:#fff;background:linear-gradient(135deg,var(--purple),#4c2cbd)}
+.ghost{background:var(--panel2);color:var(--text);border:1px solid var(--line);padding:10px 12px;min-height:42px}
+.section{
+  background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:16px;
+  box-shadow:var(--shadow);margin-top:16px
+}
+.sectionHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.sectionHead h2{font-size:19px;margin:0}
+.toolbar{display:flex;gap:8px}
+.toggleBtn{width:44px;padding:8px;font-size:21px}
+.toggleBtn.active{outline:2px solid var(--blue);background:var(--panel2)}
+.fileArea.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.fileArea.list{display:block}
+.fileItem{
+  border:1px solid var(--line);border-radius:14px;background:var(--panel2);padding:12px;
+  overflow:hidden
+}
+.grid .fileItem{text-align:center;min-height:132px}
+.list .fileItem{
+  display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:12px;
+  border-radius:12px;margin-bottom:8px;min-height:66px
+}
+.fileIcon{font-size:34px}
+.grid .fileIcon{font-size:42px;margin-bottom:7px}
+.fileName{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fileMeta{font-size:12px;color:var(--muted);margin-top:4px}
+.list .fileMeta{text-align:right;margin:0}
+.status{
+  background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:13px;
+  color:var(--muted);line-height:1.45
+}
+.status strong{color:var(--text)}
+.settingsRow{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.settingsRow + .settingsRow{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.small{font-size:13px;color:var(--muted);line-height:1.45}
+a{color:var(--blue)}
+@media(max-width:620px){
+  .actions{grid-template-columns:1fr}
+  .fileArea.grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero h1{font-size:24px}
+}
 </style>
-<script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
-<header>My Cloud Files</header>
+<header>
+  <div class="topbar">
+    <div class="brand"><div class="logo">☁</div><span>Cloud Files</span></div>
+    <div class="modeBadge" id="modeBadge">Automatic theme</div>
+  </div>
+</header>
+
 <main>
-<div class="card">
-<h2> iCloud Drive</h2>
-<p>Open your existing iCloud Drive files using Apple's web interface.</p>
-<button id="icloudBtn">Open iCloud Drive</button>
-</div>
+  <section class="hero">
+    <h1 id="greeting">Your files, one simple place</h1>
+    <p>Access iCloud Drive and files stored on your Fire HD 8.</p>
 
-<div class="card">
-<h2>📂 Fire Storage</h2>
-<p>Select a file downloaded to the Fire HD 8.</p>
-<button id="selectBtn">Select a File</button>
-<div id="fileInfo" class="file"></div>
-</div>
+    <div class="actions">
+      <div class="actionCard">
+        <div class="iconBox cloudIcon">☁️</div>
+        <h2>iCloud Drive</h2>
+        <p>Open Apple's iCloud Drive to browse, view, download and upload your files.</p>
+        <button class="primary" id="icloudBtn">Open iCloud Drive</button>
+      </div>
 
-<div class="card">
-<h2>☁ Google Drive</h2>
-<p class="small">First configure the Google OAuth Client ID in this file. Do not put a client secret here.</p>
-<button id="googleBtn">Connect Google Drive</button>
-<button id="uploadBtn" disabled>Upload Selected File to Google Drive</button>
-<button id="signoutBtn" class="secondary" disabled>Disconnect Google Drive</button>
-</div>
+      <div class="actionCard">
+        <div class="iconBox folderIcon">📁</div>
+        <h2>Local Files</h2>
+        <p>Select a file stored on this Fire device and view its details below.</p>
+        <button class="purple" id="selectBtn">Open Local Files</button>
+      </div>
+    </div>
+  </section>
 
-<div class="card">
-<h2>Status</h2>
-<div id="status" class="status">Ready.</div>
-</div>
+  <section class="section">
+    <div class="sectionHead">
+      <h2>Recent Local Files</h2>
+      <div class="toolbar" aria-label="File display">
+        <button class="ghost toggleBtn active" id="gridBtn" title="Grid view">▦</button>
+        <button class="ghost toggleBtn" id="listBtn" title="List view">☷</button>
+      </div>
+    </div>
+    <div id="fileArea" class="fileArea grid">
+      <div class="fileItem placeholder">
+        <div class="fileIcon">📄</div>
+        <div><div class="fileName">No file selected</div><div class="fileMeta">Use Open Local Files</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sectionHead"><h2>Status</h2></div>
+    <div class="status" id="status"><strong>Ready.</strong> Open iCloud Drive or select a local file.</div>
+  </section>
+
+  <section class="section">
+    <div class="sectionHead"><h2>Display</h2></div>
+    <div class="settingsRow">
+      <div>
+        <strong>Automatic day / night mode</strong>
+        <div class="small" id="sunInfo">Uses local sunrise and sunset when location permission is available.</div>
+      </div>
+      <button class="ghost" id="themeOverrideBtn">Auto</button>
+    </div>
+    <div class="settingsRow">
+      <div>
+        <strong>File layout</strong>
+        <div class="small">Your grid/list preference is remembered on this device.</div>
+      </div>
+      <span class="small" id="layoutLabel">Grid</span>
+    </div>
+  </section>
+
+  <p class="small" style="text-align:center;margin-top:20px">
+    <a href="privacy.html">Privacy Policy</a>
+  </p>
 </main>
 
 <script>
-// ============================================================
-// 1. PUT YOUR GOOGLE WEB CLIENT ID HERE
-// ============================================================
-const GOOGLE_CLIENT_ID = '987021992326-tmnd8p2ev6paffqeugctibt5b8n458to.apps.googleusercontent.com';
-
-// Least-privilege scope for this prototype. Google documents drive.file
-// as allowing the app to work with files it creates/uses.
-const DRIVE_SCOPE = 'https://www.googleapis.com/auth/drive.file';
-
-let tokenClient = null;
-let accessToken = null;
 let selectedFile = null;
-
 const $ = id => document.getElementById(id);
+const savedFilesKey = 'cloudFilesRecent';
+const layoutKey = 'cloudFilesLayout';
+const themeModeKey = 'cloudFilesThemeMode';
 
-function status(message){ $('status').innerHTML = message; }
-
-$('icloudBtn').onclick = () => {
-  status('Opening iCloud Drive in Silk...');
-  window.open('https://www.icloud.com/iclouddrive/', '_blank');
-};
-
-$('selectBtn').onclick = () => {
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.accept = '*/*';
-  input.onchange = e => {
-    selectedFile = e.target.files && e.target.files[0];
-    if(!selectedFile){ status('No file selected.'); return; }
-    $('fileInfo').style.display = 'block';
-    $('fileInfo').innerHTML =
-      '<b>Name:</b> ' + escapeHtml(selectedFile.name) + '<br>' +
-      '<b>Size:</b> ' + formatBytes(selectedFile.size) + '<br>' +
-      '<b>Type:</b> ' + escapeHtml(selectedFile.type || 'application/octet-stream');
-    $('uploadBtn').disabled = !accessToken;
-    status('<span class="ok">File received by JavaScript.</span> ' + escapeHtml(selectedFile.name));
-  };
-  input.click();
-};
-
-function initGoogle(){
-  if(GOOGLE_CLIENT_ID.startsWith('PASTE_')){
-    status('Google is not configured yet. Add your Web OAuth Client ID to GOOGLE_CLIENT_ID in index.html, then reload.');
-    return;
-  }
-  if(!window.google || !google.accounts || !google.accounts.oauth2){
-    status('Google Identity Services is still loading. Wait a few seconds and try again.');
-    return;
-  }
-  if(!tokenClient){
-    tokenClient = google.accounts.oauth2.initTokenClient({
-      client_id: GOOGLE_CLIENT_ID,
-      scope: DRIVE_SCOPE,
-      callback: response => {
-        if(response.error){
-          status('Google authorization failed: ' + escapeHtml(response.error));
-          return;
-        }
-        accessToken = response.access_token;
-        $('uploadBtn').disabled = !selectedFile;
-        $('signoutBtn').disabled = false;
-        status('<span class="ok">Google Drive connected.</span> Select a file and tap Upload.');
-      }
-    });
-  }
-  tokenClient.requestAccessToken({prompt: accessToken ? '' : 'consent'});
+function escapeHtml(text){
+  const div=document.createElement('div'); div.textContent=String(text); return div.innerHTML;
 }
-
-$('googleBtn').onclick = initGoogle;
-
-$('uploadBtn').onclick = async () => {
-  if(!selectedFile){ status('Select a file first.'); return; }
-  if(!accessToken){ status('Connect Google Drive first.'); return; }
-  $('uploadBtn').disabled = true;
-  status('Uploading <b>' + escapeHtml(selectedFile.name) + '</b> to Google Drive...');
-  try{
-    const result = await uploadFileMultipart(selectedFile, accessToken);
-    status('<span class="ok">Upload successful.</span><br>Google Drive file ID: ' + escapeHtml(result.id || 'unknown'));
-  }catch(err){
-    console.error(err);
-    status('<b>Upload failed:</b> ' + escapeHtml(err.message || String(err)));
-  }finally{
-    $('uploadBtn').disabled = !selectedFile || !accessToken;
-  }
-};
-
-$('signoutBtn').onclick = () => {
-  if(accessToken && window.google && google.accounts && google.accounts.oauth2){
-    google.accounts.oauth2.revoke(accessToken, () => {
-      accessToken = null;
-      $('uploadBtn').disabled = true;
-      $('signoutBtn').disabled = true;
-      status('Google Drive disconnected.');
-    });
-  }
-};
-
-async function uploadFileMultipart(file, token){
-  const boundary = 'cloud_files_' + Date.now();
-  const metadata = {name:file.name, mimeType:file.type || 'application/octet-stream'};
-  const delimiter = '\r\n--' + boundary + '\r\n';
-  const closeDelimiter = '\r\n--' + boundary + '--';
-  const body = new Blob([
-    '--' + boundary + '\r\n',
-    'Content-Type: application/json; charset=UTF-8\r\n\r\n',
-    JSON.stringify(metadata),
-    delimiter,
-    'Content-Type: ' + (file.type || 'application/octet-stream') + '\r\n\r\n',
-    file,
-    closeDelimiter
-  ]);
-  const response = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name,mimeType,size', {
-    method:'POST',
-    headers:{
-      'Authorization':'Bearer ' + token,
-      'Content-Type':'multipart/related; boundary=' + boundary
-    },
-    body
-  });
-  if(response.status === 401){
-    accessToken = null;
-    throw new Error('Google authorization expired. Tap Connect Google Drive again.');
-  }
-  if(!response.ok){
-    const text = await response.text();
-    throw new Error('Google Drive returned HTTP ' + response.status + ': ' + text);
-  }
-  return response.json();
-}
-
 function formatBytes(bytes){
   if(bytes===0) return '0 Bytes';
   const units=['Bytes','KB','MB','GB','TB'];
   const i=Math.floor(Math.log(bytes)/Math.log(1024));
   return parseFloat((bytes/Math.pow(1024,i)).toFixed(2))+' '+units[i];
 }
-function escapeHtml(text){
-  const div=document.createElement('div');
-  div.textContent=text;
-  return div.innerHTML;
+function iconFor(name,type){
+  const n=(name||'').toLowerCase();
+  if((type||'').startsWith('image/')) return '🖼️';
+  if(n.endsWith('.pdf')) return '📕';
+  if(n.endsWith('.zip')) return '🗜️';
+  if(n.endsWith('.txt')) return '📝';
+  if(n.endsWith('.doc')||n.endsWith('.docx')) return '📘';
+  if(n.endsWith('.xls')||n.endsWith('.xlsx')||n.endsWith('.csv')) return '📊';
+  if(n.endsWith('.ppt')||n.endsWith('.pptx')||n.endsWith('.key')) return '📽️';
+  return '📄';
 }
+function getRecent(){
+  try{return JSON.parse(localStorage.getItem(savedFilesKey)||'[]')}catch(e){return[]}
+}
+function saveRecent(file){
+  let arr=getRecent();
+  arr=arr.filter(x=>x.name!==file.name);
+  arr.unshift({name:file.name,size:file.size,type:file.type||'',when:Date.now()});
+  arr=arr.slice(0,9);
+  localStorage.setItem(savedFilesKey,JSON.stringify(arr));
+}
+function renderRecent(){
+  const area=$('fileArea'), arr=getRecent();
+  if(!arr.length){
+    area.innerHTML='<div class="fileItem"><div class="fileIcon">📄</div><div><div class="fileName">No file selected</div><div class="fileMeta">Use Open Local Files</div></div></div>';
+    return;
+  }
+  area.innerHTML=arr.map(f=>`
+    <div class="fileItem">
+      <div class="fileIcon">${iconFor(f.name,f.type)}</div>
+      <div><div class="fileName">${escapeHtml(f.name)}</div><div class="fileMeta">${escapeHtml(f.type||'File')}</div></div>
+      <div class="fileMeta">${formatBytes(f.size)}</div>
+    </div>`).join('');
+}
+function setLayout(layout){
+  layout = layout==='list'?'list':'grid';
+  $('fileArea').className='fileArea '+layout;
+  $('gridBtn').classList.toggle('active',layout==='grid');
+  $('listBtn').classList.toggle('active',layout==='list');
+  $('layoutLabel').textContent=layout==='grid'?'Grid':'List';
+  localStorage.setItem(layoutKey,layout);
+}
+$('gridBtn').onclick=()=>setLayout('grid');
+$('listBtn').onclick=()=>setLayout('list');
+
+$('icloudBtn').onclick=()=>{
+  $('status').innerHTML='<strong>Opening iCloud Drive…</strong>';
+  window.open('https://www.icloud.com/iclouddrive/','_blank');
+};
+$('selectBtn').onclick=()=>{
+  const input=document.createElement('input');
+  input.type='file'; input.accept='*/*';
+  input.onchange=e=>{
+    selectedFile=e.target.files&&e.target.files[0];
+    if(!selectedFile){$('status').textContent='No file selected.';return}
+    saveRecent(selectedFile); renderRecent();
+    $('status').innerHTML='<strong>Local file selected:</strong> '+escapeHtml(selectedFile.name)+' · '+formatBytes(selectedFile.size);
+  };
+  input.click();
+};
+
+function dayOfYear(d){
+  return Math.floor((Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())-Date.UTC(d.getFullYear(),0,0))/86400000);
+}
+function normalize360(x){x%=360;return x<0?x+360:x}
+function normalize24(x){x%=24;return x<0?x+24:x}
+function calcSunTime(date,lat,lon,isSunrise){
+  const N=dayOfYear(date), lngHour=lon/15;
+  const t=N+(((isSunrise?6:18)-lngHour)/24);
+  const M=(0.9856*t)-3.289;
+  let L=M+(1.916*Math.sin(M*Math.PI/180))+(0.020*Math.sin(2*M*Math.PI/180))+282.634;
+  L=normalize360(L);
+  let RA=Math.atan(0.91764*Math.tan(L*Math.PI/180))*180/Math.PI;
+  RA=normalize360(RA);
+  const Lquad=Math.floor(L/90)*90, RAquad=Math.floor(RA/90)*90;
+  RA=(RA+(Lquad-RAquad))/15;
+  const sinDec=0.39782*Math.sin(L*Math.PI/180);
+  const cosDec=Math.cos(Math.asin(sinDec));
+  const cosH=(Math.cos(90.833*Math.PI/180)-(sinDec*Math.sin(lat*Math.PI/180)))/(cosDec*Math.cos(lat*Math.PI/180));
+  if(cosH>1||cosH<-1) return null;
+  let H=isSunrise ? 360-(Math.acos(cosH)*180/Math.PI) : Math.acos(cosH)*180/Math.PI;
+  H/=15;
+  const T=H+RA-(0.06571*t)-6.622;
+  const UT=normalize24(T-lngHour);
+  const utcMidnight=Date.UTC(date.getFullYear(),date.getMonth(),date.getDate());
+  return new Date(utcMidnight+UT*3600000);
+}
+function fmtTime(d){
+  return d?d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}):'—';
+}
+function applyTheme(mode, sunrise, sunset){
+  const now=new Date();
+  let night;
+  if(mode==='day') night=false;
+  else if(mode==='night') night=true;
+  else if(sunrise&&sunset) night = now < sunrise || now >= sunset;
+  else {
+    const h=now.getHours(); night = h<7 || h>=19;
+  }
+  document.body.classList.toggle('night',night);
+  $('themeMeta').setAttribute('content',night?'#0b1020':'#f7f9ff');
+  $('modeBadge').textContent=night?'Night mode':'Day mode';
+  const h=now.getHours();
+  $('greeting').textContent=h<12?'Good morning!':h<18?'Good afternoon!':'Good evening!';
+}
+let sunCache={sunrise:null,sunset:null};
+function updateSunTheme(){
+  const mode=localStorage.getItem(themeModeKey)||'auto';
+  $('themeOverrideBtn').textContent=mode==='auto'?'Auto':mode==='day'?'Day':'Night';
+  if(mode!=='auto'){applyTheme(mode);return}
+  if(!navigator.geolocation){
+    $('sunInfo').textContent='Location unavailable. Using 7:00 AM / 7:00 PM fallback.';
+    applyTheme('auto'); return;
+  }
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const d=new Date(), lat=pos.coords.latitude, lon=pos.coords.longitude;
+    sunCache.sunrise=calcSunTime(d,lat,lon,true);
+    sunCache.sunset=calcSunTime(d,lat,lon,false);
+    $('sunInfo').textContent='Today: sunrise '+fmtTime(sunCache.sunrise)+' · sunset '+fmtTime(sunCache.sunset);
+    applyTheme('auto',sunCache.sunrise,sunCache.sunset);
+  },()=>{
+    $('sunInfo').textContent='Location not allowed. Using 7:00 AM / 7:00 PM fallback.';
+    applyTheme('auto');
+  },{enableHighAccuracy:false,timeout:6000,maximumAge:86400000});
+}
+$('themeOverrideBtn').onclick=()=>{
+  const cur=localStorage.getItem(themeModeKey)||'auto';
+  const next=cur==='auto'?'day':cur==='day'?'night':'auto';
+  localStorage.setItem(themeModeKey,next);
+  updateSunTheme();
+};
+
+setLayout(localStorage.getItem(layoutKey)||'grid');
+renderRecent();
+updateSunTheme();
+setInterval(()=>applyTheme(localStorage.getItem(themeModeKey)||'auto',sunCache.sunrise,sunCache.sunset),60000);
 </script>
 </body>
 </html>
