@@ -1,13 +1,13 @@
-CLOUD FILES v1.6.3 — FIRE DOWNLOAD RETURN FIX
+CLOUD FILES v1.6.4 — SILK BACK/LOCAL FILES RETURN FIX
 Date: 2026-09-01
 
 FIX
-- Removed separate-tab/window behavior for iCloud transfer screens.
-- iCloud now opens in the SAME Silk tab to avoid blank tabs/screens after download.
-- Download workflow stores a temporary return target in sessionStorage.
-- After downloading in iCloud, press the Fire browser Back control.
-- Cloud Files then automatically opens the Local Files screen.
-- Local Files explains that Fire/Silk normally places downloads in Downloads.
-- Upload workflow also uses the same tab but returns normally to the app.
-- No attempt is made to detect download completion directly because Apple's iCloud page is cross-origin and controlled by Apple.
-- Version: 1.6.3.
+- v1.6.3 stored the correct Local Files return target but depended on the page script rerunning.
+- Silk may restore Cloud Files from its back/forward cache, so the startup code may not rerun.
+- v1.6.4 listens for the browser pageshow event.
+- After Download -> iCloud -> Fire browser Back, Cloud Files now checks the pending return target and opens Local Files.
+- Local Files again presents the Browse Local Files button that opens the Fire native file picker.
+- No Recent Files history was reintroduced.
+- Local Files remains a browser/check utility only and does not upload to iCloud.
+- Downloaded files normally appear in the Fire/Silk Downloads location.
+- Version: 1.6.4.
