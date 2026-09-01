@@ -1,15 +1,17 @@
-CLOUD FILES v1.5.3 — FIRE HD 8 OPTIMIZED
+CLOUD FILES v1.6.0 — ICLOUD-CENTERED REDESIGN
 Date: 2026-09-01
 
-FIRE HD 8 SPECIFIC CHANGES
-- Home remains forced into two side-by-side columns on Silk.
-- Smaller Fire-specific header, icons, headings, helper text, and buttons.
-- Reduced card height and internal spacing for the 8-inch display.
-- Vertical scrolling is explicitly enabled on the whole page.
-- Horizontal overflow is disabled to avoid accidental sideways scrolling.
-- Nothing depends on fitting into one fixed-height viewport; lower content can scroll naturally.
-- Local, iCloud, Recent, and About screens retain prominent Back buttons.
-- Apple's external iCloud webpage still requires the Fire browser Back control.
-- Grid/List view and sunrise/sunset Day/Night mode retained.
-- Unified font and blue/green palette retained.
-- Version: 1.5.3.
+DESIGN MODEL
+- iCloud Drive is now visually and functionally the center of the Home screen.
+- Large primary iCloud panel explains that uploads/downloads are initiated from iCloud.
+- Compact Upload and Download workflow strips appear directly below iCloud.
+- Local Files is now a much smaller secondary browser item BELOW iCloud.
+- Local Files does not imply equal functionality with iCloud and does not upload files.
+- Local file icon is intentionally small and secondary.
+- No Recent Files feature.
+- Home remains vertically scrollable on Fire HD 8.
+- Fire HD 8 compact fonts, icons, and spacing retained.
+- Internal iCloud and Local screens retain Back buttons.
+- Apple's external iCloud page requires browser navigation to return.
+- Unified font, blue/green palette, automatic day/night mode retained.
+- Version: 1.6.0.

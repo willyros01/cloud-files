@@ -64,12 +64,12 @@ main{padding:7px 9px 60px}
   border:1px solid var(--line);font-size:9px;color:var(--muted);line-height:1.25
 }
 .tip strong{color:var(--text)}
-.recentBox{margin-top:6px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:7px 8px}
-.sectionHead{display:flex;align-items:center;justify-content:space-between;gap:7px;margin-bottom:6px}
-.sectionHead h3{font-size:12px;margin:0}
-.linkBtn{border:0;background:transparent;color:var(--blue);font-weight:700;font-size:11px;padding:3px}
-.fileRow{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:7px;align-items:center;padding:6px 0;border-top:1px solid var(--line)}
-.fileRow:first-child{border-top:0}
+
+
+
+
+
+
 .fileName{font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .fileMeta{font-size:10px;color:var(--muted)}
 .pageHeader{display:flex;align-items:center;gap:7px;margin-bottom:10px}
@@ -105,7 +105,7 @@ main{padding:7px 9px 60px}
 .bottomNav{
   position:fixed;bottom:0;left:0;right:0;height:54px;background:var(--panel);border-top:1px solid var(--line);z-index:20
 }
-.navInner{width:min(900px,100%);height:100%;margin:auto;display:grid;grid-template-columns:repeat(3,1fr)}
+.navInner{width:min(900px,100%);height:100%;margin:auto;display:grid;grid-template-columns:repeat(2,1fr)}
 .navBtn{border:0;background:transparent;color:var(--muted);font-size:10px;font-weight:700}
 .navBtn b{display:block;font-size:19px;margin-bottom:1px}.navBtn.active{color:var(--blue)}
 /* Fire HD 8 portrait: keep 2 columns even if Silk reports a narrow CSS viewport. */
@@ -126,7 +126,7 @@ main{padding:7px 9px 60px}
   .homeCard{min-height:210px}
   .bigIcon{font-size:43px}
   .tip{margin-top:6px}
-  .recentBox{margin-top:7px}
+  
 }
 
 html,body{overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}
@@ -150,9 +150,9 @@ main{overflow:visible}
   .homeCard p{font-size:9px;line-height:1.2;margin-bottom:7px}
   .cardBtn{min-height:38px;font-size:11px;padding:6px 4px}
   .tip{font-size:8.5px;line-height:1.18;padding:5px 6px;margin-top:5px}
-  .recentBox{padding:6px 7px;margin-top:6px}
-  .sectionHead h3{font-size:12px}
-  .fileRow{padding:5px 0}
+  
+  
+  
   .fileName{font-size:11px}
   .fileMeta{font-size:9px}
   .version{font-size:9px;margin-top:6px}
@@ -162,6 +162,55 @@ main{overflow:visible}
   .homeCard{min-height:190px}
   .bigIcon{font-size:36px}
   .tip{display:block}
+}
+
+/* v1.6 iCloud-centered Fire HD 8 home */
+.icloudPrimary{
+  display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px;align-items:center;
+  background:linear-gradient(145deg,rgba(23,105,224,.18),var(--panel));
+  border:1px solid rgba(23,105,224,.28);border-radius:18px;padding:15px 16px;
+  box-shadow:var(--shadow);min-height:235px
+}
+.primaryCloud{font-size:78px;text-align:center;line-height:1}
+.primaryCopy{min-width:0}
+.eyebrow{font-size:9px;letter-spacing:1.2px;font-weight:900;color:var(--blue);margin-bottom:3px}
+.primaryCopy h2{font-size:25px;margin:0 0 3px;color:var(--navy)}
+.primaryCopy .lead{font-size:15px;font-weight:800;color:var(--text);margin:0 0 6px}
+.primaryCopy .explain{font-size:11px;line-height:1.35;color:var(--muted);margin:0 0 11px}
+.primaryHomeBtn{
+  width:100%;border:0;border-radius:11px;background:#1769e0;color:white;
+  min-height:43px;font-weight:850;font-size:13px;padding:8px 10px
+}
+.flowStrip{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:7px}
+.flowStrip>div{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:7px 9px;min-width:0}
+.flowStrip strong{display:block;font-size:11px;color:var(--navy)}
+.flowStrip span{display:block;font-size:8.5px;color:var(--muted);margin-top:2px;line-height:1.2}
+.localMini{
+  width:100%;margin-top:7px;border:1px solid var(--line);background:var(--panel);color:var(--text);
+  border-radius:12px;padding:7px 10px;display:grid;grid-template-columns:27px minmax(0,1fr) 18px;
+  gap:7px;align-items:center;text-align:left;box-shadow:none
+}
+.miniIcon{font-size:21px}.miniCopy{min-width:0}
+.miniCopy strong{display:block;font-size:11.5px;color:var(--navy)}
+.miniCopy small{display:block;font-size:8.5px;color:var(--muted);line-height:1.2;margin-top:1px}
+.chev{font-size:20px;color:var(--green);font-weight:900;text-align:right}
+@media(max-width:620px){
+  .icloudPrimary{grid-template-columns:72px minmax(0,1fr);min-height:210px;padding:11px 10px;gap:8px}
+  .primaryCloud{font-size:57px}
+  .primaryCopy h2{font-size:20px}
+  .primaryCopy .lead{font-size:12px}
+  .primaryCopy .explain{font-size:9.5px;line-height:1.25;margin-bottom:8px}
+  .primaryHomeBtn{min-height:39px;font-size:11.5px}
+  .flowStrip{gap:5px;margin-top:5px}
+  .flowStrip>div{padding:5px 6px}
+  .flowStrip strong{font-size:10px}
+  .flowStrip span{font-size:7.5px}
+  .localMini{margin-top:5px;padding:5px 7px;grid-template-columns:23px minmax(0,1fr) 15px}
+  .miniIcon{font-size:18px}.miniCopy strong{font-size:10.5px}.miniCopy small{font-size:7.8px}
+}
+@media(max-height:700px){
+  .icloudPrimary{min-height:190px}
+  .primaryCloud{font-size:50px}
 }
 </style>
 </head>
@@ -178,33 +227,33 @@ main{overflow:visible}
 <main>
 <section id="homePage" class="page active">
   <div class="homeIntro">
-    <h1>Your files, one simple place</h1>
-    <p>Choose iCloud Drive or files stored locally on this Fire.</p>
+    <h1>iCloud File Utility</h1>
+    <p>Use iCloud Drive to upload and download. Local Files is a supporting browser.</p>
   </div>
 
-  <div class="homeCards">
-    <article class="homeCard icloudCard">
-      <div class="bigIcon">☁️</div>
+  <div class="icloudPrimary">
+    <div class="primaryCloud">☁️</div>
+    <div class="primaryCopy">
+      <div class="eyebrow">PRIMARY FILE UTILITY</div>
       <h2>iCloud Drive</h2>
-      <p>Browse, upload and download using Apple's iCloud Drive.</p>
-      <button class="cardBtn blue" data-page="icloudPage">Open iCloud Drive</button>
-      <div class="tip"><strong>Upload:</strong> choose the destination folder in iCloud first, then Upload → Choose Files.</div>
-    </article>
-
-    <article class="homeCard localCard">
-      <div class="bigIcon">📁</div>
-      <h2>Local Files</h2>
-      <p>Browse files already stored on this Fire device.</p>
-      <button class="cardBtn green" data-page="localPage">Open Local Files</button>
-      <div class="tip"><strong>Download:</strong> iCloud downloads are saved by the Fire browser to its Downloads location.</div>
-    </article>
+      <p class="lead">Upload and download files from here.</p>
+      <p class="explain"><strong>Uploads and downloads are initiated from iCloud Drive.</strong> Open the iCloud folder you want, then use Apple's Upload or Download controls.</p>
+      <button class="primaryHomeBtn" data-page="icloudPage">Open iCloud Drive</button>
+    </div>
   </div>
 
-  <div class="recentBox">
-    <div class="sectionHead"><h3>Recent Local Files</h3><button class="linkBtn" data-page="recentPage">View All ›</button></div>
-    <div id="homeRecent"></div>
+  <div class="flowStrip">
+    <div><strong>↑ Upload</strong><span>iCloud folder → Upload → Choose Files → Fire file</span></div>
+    <div><strong>↓ Download</strong><span>iCloud file → Download → Fire Downloads</span></div>
   </div>
-  <div class="version">Cloud Files v1.5.3</div>
+
+  <button class="localMini" data-page="localPage">
+    <span class="miniIcon">📁</span>
+    <span class="miniCopy"><strong>Browse Local Files</strong><small>Check files stored on this Fire. Uploads are started from iCloud Drive.</small></span>
+    <span class="chev">›</span>
+  </button>
+
+  <div class="version">Cloud Files v1.6.0</div>
 </section>
 
 <section id="icloudPage" class="page">
@@ -225,34 +274,29 @@ main{overflow:visible}
     </div>
     <p style="font-size:10px">When you are on Apple's iCloud website, use the Fire browser's Back control to return here; this app cannot place its own button inside Apple's webpage.</p>
   </div>
-  <div class="version">Cloud Files v1.5.3</div>
+  <div class="version">Cloud Files v1.6.0</div>
 </section>
 
 <section id="localPage" class="page">
   <div class="pageHeader"><button class="backBtn" data-page="homePage">‹ Back</button><h2>Local Files</h2></div>
   <div class="contentCard">
-    <p>Choose a file from the Fire's file picker. Cloud Files shows basic information about files you select.</p>
-    <button class="primaryBtn localBtn" id="pickBtn">📁 Browse Local Files</button>
+    <p>This is a local file browser only. Use it to check a file's name, type, and size. To upload a file, return to iCloud Drive and use Apple's Upload → Choose Files.</p>
+    <button class="primaryBtn localBtn" id="pickBtn">📁 Browse / Check Local File</button>
     <div class="layoutBar">
       <button class="layoutBtn on" id="gridBtn">▦ Grid</button>
       <button class="layoutBtn" id="listBtn">☷ List</button>
     </div>
     <div id="fileArea" class="fileArea grid"></div>
   </div>
-  <div class="version">Cloud Files v1.5.3</div>
+  <div class="version">Cloud Files v1.6.0</div>
 </section>
 
-<section id="recentPage" class="page">
-  <div class="pageHeader"><button class="backBtn" data-page="homePage">‹ Back</button><h2>Recent Files</h2></div>
-  <div class="contentCard"><div id="recentAll"></div></div>
-  <div class="version">Cloud Files v1.5.3</div>
-</section>
 
 <section id="aboutPage" class="page">
   <div class="pageHeader"><button class="backBtn" data-page="homePage">‹ Back</button><h2>About</h2></div>
   <div class="contentCard center">
     <div class="pageIcon">☁️</div><h3>Cloud Files</h3>
-    <p><strong>Version 1.5.3</strong></p>
+    <p><strong>Version 1.6.0</strong></p>
     <p>Simple access to iCloud Drive and Fire local files.</p>
     <p id="sunInfo">Automatic day/night mode uses local sunrise and sunset when location permission is available.</p>
     <p><a href="privacy.html">Privacy Policy</a></p>
@@ -263,13 +307,12 @@ main{overflow:visible}
 
 <nav class="bottomNav"><div class="navInner">
   <button class="navBtn active" data-page="homePage"><b>⌂</b>Home</button>
-  <button class="navBtn" data-page="recentPage"><b>◷</b>Recent</button>
   <button class="navBtn" data-page="aboutPage"><b>ⓘ</b>About</button>
 </div></nav>
 
 <script>
 const $=id=>document.getElementById(id);
-const recentKey='cloudFilesRecent',layoutKey='cloudFilesLayout',themeKey='cloudFilesThemeMode';
+const layoutKey='cloudFilesLayout',themeKey='cloudFilesThemeMode';
 
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -284,18 +327,15 @@ $('openAppleIcloud').onclick=()=>window.open('https://www.icloud.com/iclouddrive
 function esc(t){const d=document.createElement('div');d.textContent=String(t);return d.innerHTML}
 function bytes(n){if(n===0)return'0 Bytes';const u=['Bytes','KB','MB','GB'];const i=Math.min(Math.floor(Math.log(n)/Math.log(1024)),3);return +(n/Math.pow(1024,i)).toFixed(1)+' '+u[i]}
 function icon(n,t){n=(n||'').toLowerCase();if((t||'').startsWith('image/'))return'🖼️';if(n.endsWith('.pdf'))return'📕';if(n.endsWith('.doc')||n.endsWith('.docx'))return'📘';if(n.endsWith('.xls')||n.endsWith('.xlsx')||n.endsWith('.csv'))return'📊';if(n.endsWith('.txt'))return'📝';return'📄'}
-function recent(){try{return JSON.parse(localStorage.getItem(recentKey)||'[]')}catch(e){return[]}}
-function saveFile(f){let a=recent().filter(x=>x.name!==f.name);a.unshift({name:f.name,size:f.size,type:f.type||'',when:Date.now()});localStorage.setItem(recentKey,JSON.stringify(a.slice(0,10)))}
-function render(){
-  const a=recent();
-  $('homeRecent').innerHTML=a.length?a.slice(0,2).map(f=>`<div class="fileRow"><span>${icon(f.name,f.type)}</span><div><div class="fileName">${esc(f.name)}</div><div class="fileMeta">${bytes(f.size)}</div></div><span>›</span></div>`).join(''):'<div class="fileRow"><span>📄</span><div><div class="fileName">No recent files</div><div class="fileMeta">Open Local Files to begin</div></div><span></span></div>';
-  const tiles=a.length?a.map(f=>`<div class="fileTile"><div class="fi">${icon(f.name,f.type)}</div><div><div class="fileName">${esc(f.name)}</div><div class="fileMeta">${esc(f.type||'File')}</div></div><div class="fileMeta">${bytes(f.size)}</div></div>`).join(''):'<div class="fileTile"><div class="fi">📄</div><div class="fileName">No files selected</div></div>';
-  $('fileArea').innerHTML=tiles;
-  $('recentAll').innerHTML=a.length?a.map(f=>`<div class="fileRow"><span>${icon(f.name,f.type)}</span><div><div class="fileName">${esc(f.name)}</div><div class="fileMeta">${bytes(f.size)}</div></div><span></span></div>`).join(''):'<p>No recent files.</p>';
+
+function showSelectedFile(f){
+  const area=$('fileArea');
+  if(!f){area.innerHTML='<div class="fileTile"><div class="fi">📄</div><div class="fileName">No file selected</div></div>';return}
+  area.innerHTML=`<div class="fileTile"><div class="fi">${icon(f.name,f.type)}</div><div><div class="fileName">${esc(f.name)}</div><div class="fileMeta">${esc(f.type||'File')}</div></div><div class="fileMeta">${bytes(f.size)}</div></div>`;
 }
 $('pickBtn').onclick=()=>{
   const input=document.createElement('input');input.type='file';input.accept='*/*';
-  input.onchange=e=>{const f=e.target.files&&e.target.files[0];if(f){saveFile(f);render()}};
+  input.onchange=e=>{const f=e.target.files&&e.target.files[0];if(f)showSelectedFile(f)};
   input.click();
 };
 function setLayout(x){
@@ -336,8 +376,11 @@ function updateTheme(){
 }
 $('themeBtn').onclick=()=>{let m=localStorage.getItem(themeKey)||'auto',n=m==='auto'?'day':m==='day'?'night':'auto';localStorage.setItem(themeKey,n);updateTheme()};
 
+
+try{localStorage.removeItem('cloudFilesRecent')}catch(e){}
+
 setLayout(localStorage.getItem(layoutKey)||'grid');
-render();updateTheme();
+showSelectedFile(null);updateTheme();
 setInterval(()=>applyTheme(localStorage.getItem(themeKey)||'auto'),60000);
 </script>
 </body>
