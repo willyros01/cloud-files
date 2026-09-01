@@ -1,11 +1,21 @@
-CLOUD FILES v1.6.8 — RESTORE v1.5.1 NAVIGATION MODEL
+CLOUD FILES v1.6.9 — DIRECT DOWNLOAD LAUNCH
 Date: 2026-09-01
 
+PURPOSE
+Restore the interaction pattern associated with the working v1.5.1 Fire/Silk behavior.
+
 CHANGES
-- Removed automatic return/session restoration logic entirely.
-- iCloud Drive now opens independently in a new tab using the same basic method as v1.5.1.
-- No attempt is made to detect download completion.
-- No attempt is made to auto-open Local Files after iCloud.
-- Local Files remains a separate manual action from the Home screen and uses the native Fire file picker.
-- This avoids the blank-screen behavior caused by return-navigation logic.
-- Version: 1.6.8.
+- Removed the intermediate Cloud Files Download screen.
+- Home Download button now opens Apple's iCloud Drive immediately.
+- Uses the exact v1.5.1 JavaScript launch method:
+  window.open('https://www.icloud.com/iclouddrive/','_blank');
+- No automatic return logic.
+- No download-completion detection.
+- No Cloud Files attempt to open Local Files after the iCloud download.
+- The expected Fire/Silk behavior is browser-controlled:
+  after Apple downloads a file that Silk cannot directly open, Silk may show its
+  "cannot open file" prompt; continuing from that browser prompt can hand off to
+  Fire's local file browser, as observed in v1.5.1.
+- Local Files remains separately available from Home.
+- Upload guided screen remains unchanged.
+- Version: 1.6.9.
