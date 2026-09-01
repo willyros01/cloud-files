@@ -1,14 +1,11 @@
-CLOUD FILES v1.7.2
+CLOUD FILES v1.7.3
 Date: 2026-09-01
 
-EXPERIMENTAL RETURN RESET
-- Before opening iCloud from the Download instruction page, Cloud Files stores a return target of "downloadPage".
-- When Cloud Files regains control, it forces the app back to the Download instruction page on:
-  - page load / pageshow
-  - window focus
-  - visibility returning to visible
-- Uses both sessionStorage and localStorage for resilience.
-- Added a small Reset Download Page fallback button on the Download instruction screen.
-- iCloud still opens in a separate tab.
-- This cannot force Apple/Silk to bring the Cloud Files tab to the foreground, but if Cloud Files becomes active again, it should reset to Download automatically.
-- Version: 1.7.2.
+CLEANUP
+- Removed experimental automatic-return/reset logic.
+- Removed Reset Download Page button.
+- Download instruction page remains.
+- Open iCloud Drive opens Apple iCloud normally in a separate tab.
+- Cloud Files makes no attempt to detect download completion or force browser navigation.
+- Upload workflow, Local Files utility, greetings, compact Fire layout, and day/night behavior retained.
+- Version: 1.7.3.

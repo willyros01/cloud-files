@@ -292,7 +292,7 @@ main{overflow:visible}
     <span class="chev">›</span>
   </button>
 
-  <div class="version">Cloud Files v1.7.2</div>
+  <div class="version">Cloud Files v1.7.3</div>
 </section>
 
 <section id="uploadPage" class="page">
@@ -314,7 +314,7 @@ main{overflow:visible}
     <button class="primaryBtn transferOpen" id="openUploadIcloud">Open iCloud Drive</button>
     <p class="externalNote">iCloud opens in a separate Silk tab so Cloud Files stays open. Switch back to the Cloud Files tab when finished.</p>
   </div>
-  <div class="version">Cloud Files v1.7.2</div>
+  <div class="version">Cloud Files v1.7.3</div>
 </section>
 
 
@@ -335,7 +335,6 @@ main{overflow:visible}
     </ol>
     <p class="smallNote">Cloud Files does not control the screen shown after Apple completes the download.</p>
     <button class="primaryBtn icloudBtn" id="openDownloadIcloud">Open iCloud Drive</button>
-    <button class="secondaryBtn" id="resetDownloadPage" type="button">Reset Download Page</button>
   </div>
 </section>
 
@@ -350,7 +349,7 @@ main{overflow:visible}
     </div>
     <div id="fileArea" class="fileArea grid"></div>
   </div>
-  <div class="version">Cloud Files v1.7.2</div>
+  <div class="version">Cloud Files v1.7.3</div>
 </section>
 
 
@@ -358,7 +357,7 @@ main{overflow:visible}
   <div class="pageHeader"><button class="backBtn" data-page="homePage">‹ Back</button><h2>About</h2></div>
   <div class="contentCard center">
     <div class="pageIcon">☁️</div><h3>Cloud Files</h3>
-    <p><strong>Version 1.7.2</strong></p>
+    <p><strong>Version 1.7.3</strong></p>
     <p>Simple access to iCloud Drive and Fire local files.</p>
     <p id="sunInfo">Automatic day/night mode uses local sunrise and sunset when location permission is available.</p>
     <p><a href="privacy.html">Privacy Policy</a></p>
@@ -464,43 +463,11 @@ window.addEventListener('pageshow',updateGreeting);
 
 const downloadOpen=document.getElementById('openDownloadIcloud');
 if(downloadOpen){
-  downloadOpen.onclick=()=>{
-    try{
-      sessionStorage.setItem('cloudFilesReturnPage','downloadPage');
-      localStorage.setItem('cloudFilesReturnPage','downloadPage');
-    }catch(e){}
-    window.open('https://www.icloud.com/iclouddrive/','_blank');
-  };
+  downloadOpen.onclick=()=>window.open('https://www.icloud.com/iclouddrive/','_blank');
 }
 
-function restoreCloudFilesReturnPage(){
-  let target=null;
-  try{
-    target=sessionStorage.getItem('cloudFilesReturnPage') || localStorage.getItem('cloudFilesReturnPage');
-  }catch(e){}
-  if(target==='downloadPage'){
-    try{ showPage('downloadPage'); }catch(e){}
-  }
-}
-
-window.addEventListener('pageshow', restoreCloudFilesReturnPage);
-window.addEventListener('focus', restoreCloudFilesReturnPage);
-document.addEventListener('visibilitychange', ()=>{
-  if(document.visibilityState==='visible') restoreCloudFilesReturnPage();
-});
-setTimeout(restoreCloudFilesReturnPage, 0);
 
 
-const resetDownloadPage=document.getElementById('resetDownloadPage');
-if(resetDownloadPage){
-  resetDownloadPage.onclick=()=>{
-    try{
-      sessionStorage.setItem('cloudFilesReturnPage','downloadPage');
-      localStorage.setItem('cloudFilesReturnPage','downloadPage');
-    }catch(e){}
-    showPage('downloadPage');
-  };
-}
 </script>
 </body>
 </html>
