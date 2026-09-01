@@ -1,21 +1,14 @@
-CLOUD FILES — FIRE HD 8 BUILD
-Version: 1.4
+CLOUD FILES v1.5 — FIRE HD 8 COMPACT HOME
 Date: 2026-09-01
 
-FINALIZED CAPABILITIES
-- Polished tablet-friendly UX.
-- iCloud Drive button opens Apple's iCloud Drive website.
-- iCloud downloads go to the browser/device's normal download location.
-- Cloud Files does not offer or imply destination-folder selection for iCloud downloads.
-- Local Files lets the user browse/select an existing Fire file and view basic metadata.
-- Cloud Files does not move, rename, delete, or reorganize local Fire files.
-- Grid/List display toggle for recent local files.
-- Grid/List preference saved in browser localStorage.
-- Automatic day/night mode based on calculated local sunrise and sunset.
-- Manual Auto -> Day -> Night override.
-- If location permission is unavailable, fallback is 7:00 AM / 7:00 PM.
-- Google Drive/OAuth/Apps Script relay remains removed.
-
-DEPLOYMENT
-Replace index.html and privacy.html in the root of the GitHub cloud-files repository.
-Site: https://willyros01.github.io/cloud-files/
+- Home optimized to fit on one Fire HD 8 screen.
+- iCloud Drive and Local Files remain side-by-side on tablet width with large touch targets.
+- Upload/download instructions shortened to conserve vertical space.
+- Grid/List local-file display retained.
+- Automatic sunrise/sunset Day/Night mode retained.
+- No fake iCloud file/folder/storage information.
+- iCloud Drive opens Apple's actual interface.
+- Download destination remains controlled by the Fire browser.
+- Upload destination is selected by navigating to the desired iCloud folder before Upload → Choose Files.
+- Secondary app views should use a prominent Back control; Apple's iCloud page uses browser navigation because it opens externally.
+- Google Drive remains removed.
