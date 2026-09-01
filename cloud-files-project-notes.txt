@@ -1,17 +1,12 @@
-CLOUD FILES v1.6.0 — ICLOUD-CENTERED REDESIGN
+CLOUD FILES v1.6.1 — ICLOUD ACTION BUTTON UPDATE
 Date: 2026-09-01
 
-DESIGN MODEL
-- iCloud Drive is now visually and functionally the center of the Home screen.
-- Large primary iCloud panel explains that uploads/downloads are initiated from iCloud.
-- Compact Upload and Download workflow strips appear directly below iCloud.
-- Local Files is now a much smaller secondary browser item BELOW iCloud.
-- Local Files does not imply equal functionality with iCloud and does not upload files.
-- Local file icon is intentionally small and secondary.
-- No Recent Files feature.
-- Home remains vertically scrollable on Fire HD 8.
-- Fire HD 8 compact fonts, icons, and spacing retained.
-- Internal iCloud and Local screens retain Back buttons.
-- Apple's external iCloud page requires browser navigation to return.
-- Unified font, blue/green palette, automatic day/night mode retained.
-- Version: 1.6.0.
+CHANGES
+- Added Upload and Download actions side-by-side inside the main iCloud panel.
+- Both actions lead to the in-app iCloud screen, reinforcing that transfers are initiated from iCloud.
+- Removed the separate Upload/Download workflow strip below the iCloud panel.
+- Local Files remains a much smaller secondary browser item below iCloud.
+- Fire HD 8 compact layout and vertical scrolling retained.
+- Internal Back buttons retained.
+- Unified font, blue/green palette, day/night mode retained.
+- Version: 1.6.1.

@@ -181,10 +181,10 @@ main{overflow:visible}
   width:100%;border:0;border-radius:11px;background:#1769e0;color:white;
   min-height:43px;font-weight:850;font-size:13px;padding:8px 10px
 }
-.flowStrip{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:7px}
-.flowStrip>div{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:7px 9px;min-width:0}
-.flowStrip strong{display:block;font-size:11px;color:var(--navy)}
-.flowStrip span{display:block;font-size:8.5px;color:var(--muted);margin-top:2px;line-height:1.2}
+
+
+
+
 .localMini{
   width:100%;margin-top:7px;border:1px solid var(--line);background:var(--panel);color:var(--text);
   border-radius:12px;padding:7px 10px;display:grid;grid-template-columns:27px minmax(0,1fr) 18px;
@@ -201,16 +201,29 @@ main{overflow:visible}
   .primaryCopy .lead{font-size:12px}
   .primaryCopy .explain{font-size:9.5px;line-height:1.25;margin-bottom:8px}
   .primaryHomeBtn{min-height:39px;font-size:11.5px}
-  .flowStrip{gap:5px;margin-top:5px}
-  .flowStrip>div{padding:5px 6px}
-  .flowStrip strong{font-size:10px}
-  .flowStrip span{font-size:7.5px}
+  
+  
+  
+  
   .localMini{margin-top:5px;padding:5px 7px;grid-template-columns:23px minmax(0,1fr) 15px}
   .miniIcon{font-size:18px}.miniCopy strong{font-size:10.5px}.miniCopy small{font-size:7.8px}
 }
 @media(max-height:700px){
   .icloudPrimary{min-height:190px}
   .primaryCloud{font-size:50px}
+}
+
+.icloudActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.icloudAction{
+  border:0;border-radius:11px;background:#1769e0;color:#fff;min-height:48px;
+  font-size:13px;font-weight:850;padding:8px 6px;display:flex;align-items:center;
+  justify-content:center;gap:6px
+}
+.actionIcon{font-size:18px;line-height:1}
+@media(max-width:620px){
+  .icloudActions{gap:6px;margin-top:6px}
+  .icloudAction{min-height:42px;font-size:11px;padding:6px 4px}
+  .actionIcon{font-size:15px}
 }
 </style>
 </head>
@@ -228,7 +241,7 @@ main{overflow:visible}
 <section id="homePage" class="page active">
   <div class="homeIntro">
     <h1>iCloud File Utility</h1>
-    <p>Use iCloud Drive to upload and download. Local Files is a supporting browser.</p>
+    <p>Upload and download through iCloud Drive. Local Files is only a supporting browser.</p>
   </div>
 
   <div class="icloudPrimary">
@@ -237,14 +250,12 @@ main{overflow:visible}
       <div class="eyebrow">PRIMARY FILE UTILITY</div>
       <h2>iCloud Drive</h2>
       <p class="lead">Upload and download files from here.</p>
-      <p class="explain"><strong>Uploads and downloads are initiated from iCloud Drive.</strong> Open the iCloud folder you want, then use Apple's Upload or Download controls.</p>
-      <button class="primaryHomeBtn" data-page="icloudPage">Open iCloud Drive</button>
+      <p class="explain"><strong>Uploads and downloads are initiated from iCloud Drive.</strong></p>
+      <div class="icloudActions">
+        <button class="icloudAction" data-page="icloudPage"><span class="actionIcon">⬆️</span><span>Upload</span></button>
+        <button class="icloudAction" data-page="icloudPage"><span class="actionIcon">⬇️</span><span>Download</span></button>
+      </div>
     </div>
-  </div>
-
-  <div class="flowStrip">
-    <div><strong>↑ Upload</strong><span>iCloud folder → Upload → Choose Files → Fire file</span></div>
-    <div><strong>↓ Download</strong><span>iCloud file → Download → Fire Downloads</span></div>
   </div>
 
   <button class="localMini" data-page="localPage">
@@ -253,7 +264,7 @@ main{overflow:visible}
     <span class="chev">›</span>
   </button>
 
-  <div class="version">Cloud Files v1.6.0</div>
+  <div class="version">Cloud Files v1.6.1</div>
 </section>
 
 <section id="icloudPage" class="page">
@@ -274,7 +285,7 @@ main{overflow:visible}
     </div>
     <p style="font-size:10px">When you are on Apple's iCloud website, use the Fire browser's Back control to return here; this app cannot place its own button inside Apple's webpage.</p>
   </div>
-  <div class="version">Cloud Files v1.6.0</div>
+  <div class="version">Cloud Files v1.6.1</div>
 </section>
 
 <section id="localPage" class="page">
@@ -288,7 +299,7 @@ main{overflow:visible}
     </div>
     <div id="fileArea" class="fileArea grid"></div>
   </div>
-  <div class="version">Cloud Files v1.6.0</div>
+  <div class="version">Cloud Files v1.6.1</div>
 </section>
 
 
@@ -296,7 +307,7 @@ main{overflow:visible}
   <div class="pageHeader"><button class="backBtn" data-page="homePage">‹ Back</button><h2>About</h2></div>
   <div class="contentCard center">
     <div class="pageIcon">☁️</div><h3>Cloud Files</h3>
-    <p><strong>Version 1.6.0</strong></p>
+    <p><strong>Version 1.6.1</strong></p>
     <p>Simple access to iCloud Drive and Fire local files.</p>
     <p id="sunInfo">Automatic day/night mode uses local sunrise and sunset when location permission is available.</p>
     <p><a href="privacy.html">Privacy Policy</a></p>
