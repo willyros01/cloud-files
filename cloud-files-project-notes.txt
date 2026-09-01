@@ -1,4 +1,4 @@
-CLOUD FILES v1.5 — FIRE HD 8 COMPACT HOME
+CLOUD FILES v1.5.1 — FIRE HD 8 COMPACT HOME
 Date: 2026-09-01
 
 - Home optimized to fit on one Fire HD 8 screen.
@@ -12,3 +12,12 @@ Date: 2026-09-01
 - Upload destination is selected by navigating to the desired iCloud folder before Upload → Choose Files.
 - Secondary app views should use a prominent Back control; Apple's iCloud page uses browser navigation because it opens externally.
 - Google Drive remains removed.
+
+STANDARDIZATION UPDATE
+- One UI font stack across all screens: Apple system / Segoe UI / Roboto / Helvetica / Arial fallback.
+- One unified color system across Home, Local, Recent, About, and Night Mode.
+- Primary accent: blue.
+- Secondary/local-files accent: green.
+- Consistent navy text and borders in day mode.
+- Consistent navy-based dark theme in night mode.
+- Version number displayed in the app and privacy page.
