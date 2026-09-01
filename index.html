@@ -280,7 +280,7 @@ main{overflow:visible}
     <span class="chev">›</span>
   </button>
 
-  <div class="version">Cloud Files v1.6.2</div>
+  <div class="version">Cloud Files v1.6.3</div>
 </section>
 
 <section id="uploadPage" class="page">
@@ -299,10 +299,10 @@ main{overflow:visible}
         <li>Select the file from your Fire.</li>
       </ol>
     </div>
-    <button class="primaryBtn transferOpen" data-open-icloud>Open iCloud Drive</button>
+    <button class="primaryBtn transferOpen" id="openUploadIcloud">Open iCloud Drive</button>
     <p class="externalNote">Apple's webpage controls the upload. Use the Fire browser Back control to return to Cloud Files.</p>
   </div>
-  <div class="version">Cloud Files v1.6.2</div>
+  <div class="version">Cloud Files v1.6.3</div>
 </section>
 
 <section id="downloadPage" class="page">
@@ -320,16 +320,16 @@ main{overflow:visible}
         <li>Silk saves the file to its normal Fire download location.</li>
       </ol>
     </div>
-    <button class="primaryBtn transferOpen" data-open-icloud>Open iCloud Drive</button>
-    <p class="externalNote">Apple's webpage controls the download. Use the Fire browser Back control to return to Cloud Files.</p>
+    <button class="primaryBtn transferOpen" id="openDownloadIcloud">Open iCloud Drive</button>
+    <p class="externalNote">Apple's webpage controls the download. After the file downloads, tap the Fire browser Back control. Cloud Files will return directly to Local Files.</p>
   </div>
-  <div class="version">Cloud Files v1.6.2</div>
+  <div class="version">Cloud Files v1.6.3</div>
 </section>
 
 <section id="localPage" class="page">
   <div class="pageHeader"><button class="backBtn" data-page="homePage">‹ Back</button><h2>Local Files</h2></div>
   <div class="contentCard">
-    <p>This is a local file browser only. Use it to check a file's name, type, and size. To upload a file, return to iCloud Drive and use Apple's Upload → Choose Files.</p>
+    <p>This is the local file browser. After downloading from iCloud, use Browse / Check Local File to locate or confirm the downloaded file. Downloads normally go to the Fire browser's Downloads location.</p>
     <button class="primaryBtn localBtn" id="pickBtn">📁 Browse / Check Local File</button>
     <div class="layoutBar">
       <button class="layoutBtn on" id="gridBtn">▦ Grid</button>
@@ -337,7 +337,7 @@ main{overflow:visible}
     </div>
     <div id="fileArea" class="fileArea grid"></div>
   </div>
-  <div class="version">Cloud Files v1.6.2</div>
+  <div class="version">Cloud Files v1.6.3</div>
 </section>
 
 
@@ -345,7 +345,7 @@ main{overflow:visible}
   <div class="pageHeader"><button class="backBtn" data-page="homePage">‹ Back</button><h2>About</h2></div>
   <div class="contentCard center">
     <div class="pageIcon">☁️</div><h3>Cloud Files</h3>
-    <p><strong>Version 1.6.2</strong></p>
+    <p><strong>Version 1.6.3</strong></p>
     <p>Simple access to iCloud Drive and Fire local files.</p>
     <p id="sunInfo">Automatic day/night mode uses local sunrise and sunset when location permission is available.</p>
     <p><a href="privacy.html">Privacy Policy</a></p>
@@ -371,7 +371,16 @@ function showPage(id){
 }
 document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
 
-document.querySelectorAll('[data-open-icloud]').forEach(b=>b.addEventListener('click',()=>window.open('https://www.icloud.com/iclouddrive/','_blank')));
+
+$('openUploadIcloud').onclick=()=>{
+  sessionStorage.removeItem('cloudFilesReturnPage');
+  window.location.href='https://www.icloud.com/iclouddrive/';
+};
+$('openDownloadIcloud').onclick=()=>{
+  sessionStorage.setItem('cloudFilesReturnPage','localPage');
+  window.location.href='https://www.icloud.com/iclouddrive/';
+};
+
 
 function esc(t){const d=document.createElement('div');d.textContent=String(t);return d.innerHTML}
 function bytes(n){if(n===0)return'0 Bytes';const u=['Bytes','KB','MB','GB'];const i=Math.min(Math.floor(Math.log(n)/Math.log(1024)),3);return +(n/Math.pow(1024,i)).toFixed(1)+' '+u[i]}
@@ -429,6 +438,13 @@ $('themeBtn').onclick=()=>{let m=localStorage.getItem(themeKey)||'auto',n=m==='a
 try{localStorage.removeItem('cloudFilesRecent')}catch(e){}
 
 setLayout(localStorage.getItem(layoutKey)||'grid');
+
+const returnPage=sessionStorage.getItem('cloudFilesReturnPage');
+if(returnPage){
+  sessionStorage.removeItem('cloudFilesReturnPage');
+  setTimeout(()=>showPage(returnPage),0);
+}
+
 showSelectedFile(null);updateTheme();
 setInterval(()=>applyTheme(localStorage.getItem(themeKey)||'auto'),60000);
 </script>

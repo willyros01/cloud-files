@@ -1,14 +1,13 @@
-CLOUD FILES v1.6.2 — GUIDED APPLE TRANSFER WORKFLOW
+CLOUD FILES v1.6.3 — FIRE DOWNLOAD RETURN FIX
 Date: 2026-09-01
 
-CHANGES
-- Home Upload and Download buttons now open separate guided screens.
-- Upload screen has its own Back button and Apple-specific upload steps.
-- Download screen has its own Back button and Apple-specific download steps.
-- Both guided screens open Apple's real iCloud Drive webpage.
-- Upload: open destination iCloud folder -> Apple Upload -> Choose Files -> select Fire file.
-- Download: select iCloud file -> Apple Download -> Silk saves to normal Fire download location.
-- Cloud Files does not modify Apple's toolbar or perform the transfer itself.
-- Local Files remains a small secondary browser below the main iCloud panel.
-- Fire HD 8 compact layout and vertical scrolling retained.
-- Version: 1.6.2.
+FIX
+- Removed separate-tab/window behavior for iCloud transfer screens.
+- iCloud now opens in the SAME Silk tab to avoid blank tabs/screens after download.
+- Download workflow stores a temporary return target in sessionStorage.
+- After downloading in iCloud, press the Fire browser Back control.
+- Cloud Files then automatically opens the Local Files screen.
+- Local Files explains that Fire/Silk normally places downloads in Downloads.
+- Upload workflow also uses the same tab but returns normally to the app.
+- No attempt is made to detect download completion directly because Apple's iCloud page is cross-origin and controlled by Apple.
+- Version: 1.6.3.
