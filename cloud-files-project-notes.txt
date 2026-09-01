@@ -1,12 +1,14 @@
-CLOUD FILES v1.6.1 — ICLOUD ACTION BUTTON UPDATE
+CLOUD FILES v1.6.2 — GUIDED APPLE TRANSFER WORKFLOW
 Date: 2026-09-01
 
 CHANGES
-- Added Upload and Download actions side-by-side inside the main iCloud panel.
-- Both actions lead to the in-app iCloud screen, reinforcing that transfers are initiated from iCloud.
-- Removed the separate Upload/Download workflow strip below the iCloud panel.
-- Local Files remains a much smaller secondary browser item below iCloud.
+- Home Upload and Download buttons now open separate guided screens.
+- Upload screen has its own Back button and Apple-specific upload steps.
+- Download screen has its own Back button and Apple-specific download steps.
+- Both guided screens open Apple's real iCloud Drive webpage.
+- Upload: open destination iCloud folder -> Apple Upload -> Choose Files -> select Fire file.
+- Download: select iCloud file -> Apple Download -> Silk saves to normal Fire download location.
+- Cloud Files does not modify Apple's toolbar or perform the transfer itself.
+- Local Files remains a small secondary browser below the main iCloud panel.
 - Fire HD 8 compact layout and vertical scrolling retained.
-- Internal Back buttons retained.
-- Unified font, blue/green palette, day/night mode retained.
-- Version: 1.6.1.
+- Version: 1.6.2.

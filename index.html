@@ -225,6 +225,22 @@ main{overflow:visible}
   .icloudAction{min-height:42px;font-size:11px;padding:6px 4px}
   .actionIcon{font-size:15px}
 }
+
+.transferOpen{margin-top:10px}
+.externalNote{font-size:10px!important;margin:8px 0 0!important}
+@media(max-width:620px){
+  .pageHeader{margin-bottom:7px}
+  .pageHeader h2{font-size:17px}
+  .backBtn{padding:7px 9px;font-size:12px}
+  .contentCard{padding:10px}
+  .pageIcon{font-size:42px;margin:3px 0}
+  .contentCard h3{font-size:16px}
+  .contentCard p{font-size:10.5px}
+  .steps{padding:7px 9px;margin-top:8px}
+  .steps h4{font-size:11px}
+  .steps ol{font-size:10px;line-height:1.4}
+  .transferOpen{min-height:39px;font-size:12px}
+}
 </style>
 </head>
 <body>
@@ -252,8 +268,8 @@ main{overflow:visible}
       <p class="lead">Upload and download files from here.</p>
       <p class="explain"><strong>Uploads and downloads are initiated from iCloud Drive.</strong></p>
       <div class="icloudActions">
-        <button class="icloudAction" data-page="icloudPage"><span class="actionIcon">⬆️</span><span>Upload</span></button>
-        <button class="icloudAction" data-page="icloudPage"><span class="actionIcon">⬇️</span><span>Download</span></button>
+        <button class="icloudAction" data-page="uploadPage"><span class="actionIcon">⬆️</span><span>Upload</span></button>
+        <button class="icloudAction" data-page="downloadPage"><span class="actionIcon">⬇️</span><span>Download</span></button>
       </div>
     </div>
   </div>
@@ -264,28 +280,50 @@ main{overflow:visible}
     <span class="chev">›</span>
   </button>
 
-  <div class="version">Cloud Files v1.6.1</div>
+  <div class="version">Cloud Files v1.6.2</div>
 </section>
 
-<section id="icloudPage" class="page">
-  <div class="pageHeader"><button class="backBtn" data-page="homePage">‹ Back</button><h2>iCloud Drive</h2></div>
+<section id="uploadPage" class="page">
+  <div class="pageHeader"><button class="backBtn" data-page="homePage">‹ Back</button><h2>Upload to iCloud</h2></div>
   <div class="contentCard center">
-    <div class="pageIcon">☁️</div>
-    <h3>iCloud Drive</h3>
-    <p>Apple's iCloud Drive opens in a browser page. Use it to browse, upload and download your cloud files.</p>
-    <button class="primaryBtn" id="openAppleIcloud">Open Apple's iCloud Drive</button>
+    <div class="pageIcon">⬆️</div>
+    <h3>Upload a Fire File</h3>
+    <p>Uploads are started inside Apple's iCloud Drive.</p>
     <div class="steps">
-      <h4>Upload a Fire file to iCloud</h4>
+      <h4>Upload</h4>
       <ol>
-        <li>Open iCloud Drive.</li>
-        <li>Go to the iCloud folder where you want the file.</li>
-        <li>Tap Upload, then Choose Files.</li>
-        <li>Select the file from the Fire.</li>
+        <li>Tap <strong>Open iCloud Drive</strong> below.</li>
+        <li>Open the iCloud folder where you want the file saved.</li>
+        <li>Tap Apple's <strong>Upload</strong> control.</li>
+        <li>Choose <strong>Choose Files</strong>.</li>
+        <li>Select the file from your Fire.</li>
       </ol>
     </div>
-    <p style="font-size:10px">When you are on Apple's iCloud website, use the Fire browser's Back control to return here; this app cannot place its own button inside Apple's webpage.</p>
+    <button class="primaryBtn transferOpen" data-open-icloud>Open iCloud Drive</button>
+    <p class="externalNote">Apple's webpage controls the upload. Use the Fire browser Back control to return to Cloud Files.</p>
   </div>
-  <div class="version">Cloud Files v1.6.1</div>
+  <div class="version">Cloud Files v1.6.2</div>
+</section>
+
+<section id="downloadPage" class="page">
+  <div class="pageHeader"><button class="backBtn" data-page="homePage">‹ Back</button><h2>Download from iCloud</h2></div>
+  <div class="contentCard center">
+    <div class="pageIcon">⬇️</div>
+    <h3>Download an iCloud File</h3>
+    <p>Apple shows the download action for the file you select in iCloud Drive.</p>
+    <div class="steps">
+      <h4>Download</h4>
+      <ol>
+        <li>Tap <strong>Open iCloud Drive</strong> below.</li>
+        <li>Find and select the file you want.</li>
+        <li>Use Apple's <strong>Download</strong> control for the selected file.</li>
+        <li>Silk saves the file to its normal Fire download location.</li>
+      </ol>
+    </div>
+    <button class="primaryBtn transferOpen" data-open-icloud>Open iCloud Drive</button>
+    <p class="externalNote">Apple's webpage controls the download. Use the Fire browser Back control to return to Cloud Files.</p>
+  </div>
+  <div class="version">Cloud Files v1.6.2</div>
 </section>
 
 <section id="localPage" class="page">
@@ -299,7 +337,7 @@ main{overflow:visible}
     </div>
     <div id="fileArea" class="fileArea grid"></div>
   </div>
-  <div class="version">Cloud Files v1.6.1</div>
+  <div class="version">Cloud Files v1.6.2</div>
 </section>
 
 
@@ -307,7 +345,7 @@ main{overflow:visible}
   <div class="pageHeader"><button class="backBtn" data-page="homePage">‹ Back</button><h2>About</h2></div>
   <div class="contentCard center">
     <div class="pageIcon">☁️</div><h3>Cloud Files</h3>
-    <p><strong>Version 1.6.1</strong></p>
+    <p><strong>Version 1.6.2</strong></p>
     <p>Simple access to iCloud Drive and Fire local files.</p>
     <p id="sunInfo">Automatic day/night mode uses local sunrise and sunset when location permission is available.</p>
     <p><a href="privacy.html">Privacy Policy</a></p>
@@ -333,7 +371,7 @@ function showPage(id){
 }
 document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
 
-$('openAppleIcloud').onclick=()=>window.open('https://www.icloud.com/iclouddrive/','_blank');
+document.querySelectorAll('[data-open-icloud]').forEach(b=>b.addEventListener('click',()=>window.open('https://www.icloud.com/iclouddrive/','_blank')));
 
 function esc(t){const d=document.createElement('div');d.textContent=String(t);return d.innerHTML}
 function bytes(n){if(n===0)return'0 Bytes';const u=['Bytes','KB','MB','GB'];const i=Math.min(Math.floor(Math.log(n)/Math.log(1024)),3);return +(n/Math.pow(1024,i)).toFixed(1)+' '+u[i]}
