@@ -1,0 +1,21 @@
+My Cloud Files - important project notes
+
+Repository/site:
+https://willyros01.github.io/cloud-files/
+
+Google OAuth Web Client ID:
+987021992326-tmnd8p2ev6paffqeugctibt5b8n458to.apps.googleusercontent.com
+
+Authorized JavaScript origin:
+https://willyros01.github.io
+
+Google Drive scope:
+https://www.googleapis.com/auth/drive.file
+
+Important:
+- Never put a Google Client Secret in index.html.
+- Preserve the OAuth Client ID above whenever index.html is recreated.
+- Current index.html uses Google Identity Services and Google Drive connect/upload/disconnect.
+- OAuth app is External / Testing and a test user has been added.
+- privacy.html should be hosted in the same cloud-files repository.
+- When recreating index.html, preserve the latest working file and make only requested changes.
