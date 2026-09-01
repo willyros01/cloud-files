@@ -8,43 +8,58 @@
 <style>
 :root{
   --bg:#f4f7fb;--panel:#fff;--panel2:#f7f9ff;--text:#101828;--muted:#667085;
-  --line:#e4e7ec;--blue:#1677ff;--blue2:#39a7ff;--purple:#6d43e6;
+  --line:#e4e7ec;--blue:#1677ff;--blue2:#39a7ff;--purple:#6d43e6;--green:#15a46d;
   --shadow:0 10px 30px rgba(23,43,77,.10);--header:rgba(255,255,255,.86)
 }
 body.night{
   --bg:#0b1020;--panel:#131a2a;--panel2:#182237;--text:#f6f8ff;--muted:#aeb8cf;
-  --line:#26324a;--blue:#55a7ff;--blue2:#65c6ff;--purple:#9a7cff;
+  --line:#26324a;--blue:#55a7ff;--blue2:#65c6ff;--purple:#9a7cff;--green:#53d89a;
   --shadow:0 10px 30px rgba(0,0,0,.30);--header:rgba(11,16,32,.88)
 }
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
 body{transition:background .35s,color .35s}
-header{position:sticky;top:0;z-index:10;background:var(--header);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+header{
+  position:sticky;top:0;z-index:10;background:var(--header);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line)
+}
 .topbar{max-width:920px;margin:auto;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{display:flex;align-items:center;gap:11px;font-size:22px;font-weight:800}
-.logo{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;color:#fff;font-size:23px;
-background:linear-gradient(135deg,var(--blue2),var(--purple));box-shadow:var(--shadow)}
+.logo{
+  width:42px;height:42px;border-radius:13px;display:grid;place-items:center;color:white;font-size:23px;
+  background:linear-gradient(135deg,var(--blue2),var(--purple));box-shadow:var(--shadow)
+}
 .modeBadge{font-size:12px;color:var(--muted);text-align:right}
 main{max-width:920px;margin:auto;padding:18px 18px 36px}
-.hero{padding:14px;border-radius:20px;background:
-radial-gradient(circle at 90% 0%,rgba(111,92,255,.18),transparent 36%),
-radial-gradient(circle at 0% 100%,rgba(44,170,255,.16),transparent 36%),var(--panel);
-box-shadow:var(--shadow);border:1px solid var(--line);margin-bottom:10px}
+.hero{
+  padding:20px;border-radius:22px;background:
+  radial-gradient(circle at 90% 0%,rgba(111,92,255,.18),transparent 36%),
+  radial-gradient(circle at 0% 100%,rgba(44,170,255,.16),transparent 36%),var(--panel);
+  box-shadow:var(--shadow);border:1px solid var(--line);margin-bottom:18px
+}
 .hero h1{margin:0 0 6px;font-size:28px}
 .hero p{margin:0;color:var(--muted);line-height:1.5}
 .actions{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
-.actionCard{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow)}
+.actionCard{
+  background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px;
+  box-shadow:var(--shadow)
+}
 .iconBox{width:58px;height:58px;border-radius:17px;display:grid;place-items:center;font-size:31px;margin-bottom:13px}
 .cloudIcon{background:linear-gradient(135deg,#cfefff,#dce5ff)}
 .folderIcon{background:linear-gradient(135deg,#eadcff,#d9cbff)}
 .actionCard h2{font-size:20px;margin:0 0 6px}
 .actionCard p{color:var(--muted);margin:0 0 14px;line-height:1.45;font-size:14px}
-.notice{margin-top:12px;padding:11px 12px;border-radius:12px;background:var(--panel2);border:1px solid var(--line);font-size:13px;color:var(--muted);line-height:1.5}
-button{border:0;border-radius:12px;padding:14px 16px;font-size:16px;font-weight:700;cursor:pointer;min-height:50px}
+button{
+  border:0;border-radius:12px;padding:14px 16px;font-size:16px;font-weight:700;cursor:pointer;
+  min-height:50px
+}
 .primary{width:100%;color:#fff;background:linear-gradient(135deg,var(--blue),#075bd8)}
 .purple{width:100%;color:#fff;background:linear-gradient(135deg,var(--purple),#4c2cbd)}
 .ghost{background:var(--panel2);color:var(--text);border:1px solid var(--line);padding:10px 12px;min-height:42px}
-.section{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:var(--shadow);margin-top:16px}
+.section{
+  background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:16px;
+  box-shadow:var(--shadow);margin-top:16px
+}
 .sectionHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
 .sectionHead h2{font-size:19px;margin:0}
 .toolbar{display:flex;gap:8px}
@@ -52,13 +67,24 @@ button{border:0;border-radius:12px;padding:14px 16px;font-size:16px;font-weight:
 .toggleBtn.active{outline:2px solid var(--blue);background:var(--panel2)}
 .fileArea.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .fileArea.list{display:block}
-.fileItem{border:1px solid var(--line);border-radius:14px;background:var(--panel2);padding:12px;overflow:hidden}
+.fileItem{
+  border:1px solid var(--line);border-radius:14px;background:var(--panel2);padding:12px;
+  overflow:hidden
+}
 .grid .fileItem{text-align:center;min-height:132px}
-.list .fileItem{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:12px;border-radius:12px;margin-bottom:8px;min-height:66px}
-.fileIcon{font-size:34px}.grid .fileIcon{font-size:42px;margin-bottom:7px}
+.list .fileItem{
+  display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:12px;
+  border-radius:12px;margin-bottom:8px;min-height:66px
+}
+.fileIcon{font-size:34px}
+.grid .fileIcon{font-size:42px;margin-bottom:7px}
 .fileName{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.fileMeta{font-size:12px;color:var(--muted);margin-top:4px}.list .fileMeta{text-align:right;margin:0}
-.status{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:13px;color:var(--muted);line-height:1.45}
+.fileMeta{font-size:12px;color:var(--muted);margin-top:4px}
+.list .fileMeta{text-align:right;margin:0}
+.status{
+  background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:13px;
+  color:var(--muted);line-height:1.45
+}
 .status strong{color:var(--text)}
 .settingsRow{display:flex;justify-content:space-between;align-items:center;gap:12px}
 .settingsRow + .settingsRow{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
@@ -69,22 +95,6 @@ a{color:var(--blue)}
   .fileArea.grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .hero h1{font-size:24px}
 }
-
-/* v1.5 Fire HD 8 single-screen optimization */
-@media (min-width:600px) and (max-height:900px){
- header .topbar{padding:10px 18px}
- main{padding-top:10px}
- .hero{padding:12px}
- .actions{margin-top:10px}
- .actionCard{padding:12px}
- .iconBox{width:48px;height:48px;font-size:26px;margin-bottom:7px}
- .actionCard h2{font-size:18px}
- .actionCard p{margin-bottom:8px}
- .notice{margin-top:7px;padding:7px 9px}
- button{min-height:44px;padding:10px 14px}
- .section{margin-top:9px;padding:11px}
-}
-.backHint{font-weight:800;color:var(--blue)}
 </style>
 </head>
 <body>
@@ -98,23 +108,21 @@ a{color:var(--blue)}
 <main>
   <section class="hero">
     <h1 id="greeting">Your files, one simple place</h1>
-    <p>Open iCloud Drive and browse files stored on your Fire HD 8.</p>
+    <p>Access iCloud Drive and files stored on your Fire HD 8.</p>
 
     <div class="actions">
       <div class="actionCard">
         <div class="iconBox cloudIcon">☁️</div>
         <h2>iCloud Drive</h2>
-        <p>Browse, upload and download using Apple's iCloud Drive.</p>
+        <p>Open Apple's iCloud Drive to browse, view, download and upload your files.</p>
         <button class="primary" id="icloudBtn">Open iCloud Drive</button>
-        <div class="notice">Download: files are saved by the Fire browser to its normal Downloads location.</div>
       </div>
 
       <div class="actionCard">
         <div class="iconBox folderIcon">📁</div>
         <h2>Local Files</h2>
-        <p>Browse files already stored on this Fire device.</p>
-        <button class="purple" id="selectBtn">Browse Local Files</button>
-        <div class="notice">Upload: in iCloud, open the destination folder first, then Upload → Choose Files.</div>
+        <p>Select a file stored on this Fire device and view its details below.</p>
+        <button class="purple" id="selectBtn">Open Local Files</button>
       </div>
     </div>
   </section>
@@ -128,16 +136,16 @@ a{color:var(--blue)}
       </div>
     </div>
     <div id="fileArea" class="fileArea grid">
-      <div class="fileItem">
+      <div class="fileItem placeholder">
         <div class="fileIcon">📄</div>
-        <div><div class="fileName">No file selected</div><div class="fileMeta">Use Browse Local Files</div></div>
+        <div><div class="fileName">No file selected</div><div class="fileMeta">Use Open Local Files</div></div>
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="sectionHead"><h2>Status</h2></div>
-    <div class="status" id="status"><strong>Ready.</strong> Open iCloud Drive or browse a local file.</div>
+    <div class="status" id="status"><strong>Ready.</strong> Open iCloud Drive or select a local file.</div>
   </section>
 
   <section class="section">
@@ -158,36 +166,52 @@ a{color:var(--blue)}
     </div>
   </section>
 
-  <p class="small" style="text-align:center;margin-top:20px"><a href="privacy.html">Privacy Policy</a></p>
+  <p class="small" style="text-align:center;margin-top:20px">
+    <a href="privacy.html">Privacy Policy</a>
+  </p>
 </main>
 
 <script>
+let selectedFile = null;
 const $ = id => document.getElementById(id);
-const savedFilesKey='cloudFilesRecent', layoutKey='cloudFilesLayout', themeModeKey='cloudFilesThemeMode';
+const savedFilesKey = 'cloudFilesRecent';
+const layoutKey = 'cloudFilesLayout';
+const themeModeKey = 'cloudFilesThemeMode';
 
-function escapeHtml(text){const div=document.createElement('div');div.textContent=String(text);return div.innerHTML}
-function formatBytes(bytes){if(bytes===0)return'0 Bytes';const u=['Bytes','KB','MB','GB','TB'];const i=Math.floor(Math.log(bytes)/Math.log(1024));return parseFloat((bytes/Math.pow(1024,i)).toFixed(2))+' '+u[i]}
+function escapeHtml(text){
+  const div=document.createElement('div'); div.textContent=String(text); return div.innerHTML;
+}
+function formatBytes(bytes){
+  if(bytes===0) return '0 Bytes';
+  const units=['Bytes','KB','MB','GB','TB'];
+  const i=Math.floor(Math.log(bytes)/Math.log(1024));
+  return parseFloat((bytes/Math.pow(1024,i)).toFixed(2))+' '+units[i];
+}
 function iconFor(name,type){
   const n=(name||'').toLowerCase();
-  if((type||'').startsWith('image/'))return'🖼️';
-  if(n.endsWith('.pdf'))return'📕';
-  if(n.endsWith('.zip'))return'🗜️';
-  if(n.endsWith('.txt'))return'📝';
-  if(n.endsWith('.doc')||n.endsWith('.docx'))return'📘';
-  if(n.endsWith('.xls')||n.endsWith('.xlsx')||n.endsWith('.csv'))return'📊';
-  if(n.endsWith('.ppt')||n.endsWith('.pptx')||n.endsWith('.key'))return'📽️';
-  return'📄';
+  if((type||'').startsWith('image/')) return '🖼️';
+  if(n.endsWith('.pdf')) return '📕';
+  if(n.endsWith('.zip')) return '🗜️';
+  if(n.endsWith('.txt')) return '📝';
+  if(n.endsWith('.doc')||n.endsWith('.docx')) return '📘';
+  if(n.endsWith('.xls')||n.endsWith('.xlsx')||n.endsWith('.csv')) return '📊';
+  if(n.endsWith('.ppt')||n.endsWith('.pptx')||n.endsWith('.key')) return '📽️';
+  return '📄';
 }
-function getRecent(){try{return JSON.parse(localStorage.getItem(savedFilesKey)||'[]')}catch(e){return[]}}
+function getRecent(){
+  try{return JSON.parse(localStorage.getItem(savedFilesKey)||'[]')}catch(e){return[]}
+}
 function saveRecent(file){
-  let arr=getRecent().filter(x=>x.name!==file.name);
+  let arr=getRecent();
+  arr=arr.filter(x=>x.name!==file.name);
   arr.unshift({name:file.name,size:file.size,type:file.type||'',when:Date.now()});
-  localStorage.setItem(savedFilesKey,JSON.stringify(arr.slice(0,9)));
+  arr=arr.slice(0,9);
+  localStorage.setItem(savedFilesKey,JSON.stringify(arr));
 }
 function renderRecent(){
   const area=$('fileArea'), arr=getRecent();
   if(!arr.length){
-    area.innerHTML='<div class="fileItem"><div class="fileIcon">📄</div><div><div class="fileName">No file selected</div><div class="fileMeta">Use Browse Local Files</div></div></div>';
+    area.innerHTML='<div class="fileItem"><div class="fileIcon">📄</div><div><div class="fileName">No file selected</div><div class="fileMeta">Use Open Local Files</div></div></div>';
     return;
   }
   area.innerHTML=arr.map(f=>`
@@ -198,7 +222,7 @@ function renderRecent(){
     </div>`).join('');
 }
 function setLayout(layout){
-  layout=layout==='list'?'list':'grid';
+  layout = layout==='list'?'list':'grid';
   $('fileArea').className='fileArea '+layout;
   $('gridBtn').classList.toggle('active',layout==='grid');
   $('listBtn').classList.toggle('active',layout==='list');
@@ -214,54 +238,73 @@ $('icloudBtn').onclick=()=>{
 };
 $('selectBtn').onclick=()=>{
   const input=document.createElement('input');
-  input.type='file';input.accept='*/*';
+  input.type='file'; input.accept='*/*';
   input.onchange=e=>{
-    const file=e.target.files&&e.target.files[0];
-    if(!file){$('status').textContent='No file selected.';return}
-    saveRecent(file);renderRecent();
-    $('status').innerHTML='<strong>Local file selected:</strong> '+escapeHtml(file.name)+' · '+formatBytes(file.size);
+    selectedFile=e.target.files&&e.target.files[0];
+    if(!selectedFile){$('status').textContent='No file selected.';return}
+    saveRecent(selectedFile); renderRecent();
+    $('status').innerHTML='<strong>Local file selected:</strong> '+escapeHtml(selectedFile.name)+' · '+formatBytes(selectedFile.size);
   };
   input.click();
 };
 
-function dayOfYear(d){return Math.floor((Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())-Date.UTC(d.getFullYear(),0,0))/86400000)}
+function dayOfYear(d){
+  return Math.floor((Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())-Date.UTC(d.getFullYear(),0,0))/86400000);
+}
 function normalize360(x){x%=360;return x<0?x+360:x}
 function normalize24(x){x%=24;return x<0?x+24:x}
 function calcSunTime(date,lat,lon,isSunrise){
-  const N=dayOfYear(date),lngHour=lon/15,t=N+(((isSunrise?6:18)-lngHour)/24);
+  const N=dayOfYear(date), lngHour=lon/15;
+  const t=N+(((isSunrise?6:18)-lngHour)/24);
   const M=(0.9856*t)-3.289;
   let L=M+(1.916*Math.sin(M*Math.PI/180))+(0.020*Math.sin(2*M*Math.PI/180))+282.634;
   L=normalize360(L);
-  let RA=Math.atan(0.91764*Math.tan(L*Math.PI/180))*180/Math.PI;RA=normalize360(RA);
-  const Lq=Math.floor(L/90)*90,RAq=Math.floor(RA/90)*90;RA=(RA+(Lq-RAq))/15;
-  const sinDec=0.39782*Math.sin(L*Math.PI/180),cosDec=Math.cos(Math.asin(sinDec));
+  let RA=Math.atan(0.91764*Math.tan(L*Math.PI/180))*180/Math.PI;
+  RA=normalize360(RA);
+  const Lquad=Math.floor(L/90)*90, RAquad=Math.floor(RA/90)*90;
+  RA=(RA+(Lquad-RAquad))/15;
+  const sinDec=0.39782*Math.sin(L*Math.PI/180);
+  const cosDec=Math.cos(Math.asin(sinDec));
   const cosH=(Math.cos(90.833*Math.PI/180)-(sinDec*Math.sin(lat*Math.PI/180)))/(cosDec*Math.cos(lat*Math.PI/180));
-  if(cosH>1||cosH<-1)return null;
-  let H=isSunrise?360-(Math.acos(cosH)*180/Math.PI):Math.acos(cosH)*180/Math.PI;H/=15;
-  const T=H+RA-(0.06571*t)-6.622,UT=normalize24(T-lngHour);
-  return new Date(Date.UTC(date.getFullYear(),date.getMonth(),date.getDate())+UT*3600000);
+  if(cosH>1||cosH<-1) return null;
+  let H=isSunrise ? 360-(Math.acos(cosH)*180/Math.PI) : Math.acos(cosH)*180/Math.PI;
+  H/=15;
+  const T=H+RA-(0.06571*t)-6.622;
+  const UT=normalize24(T-lngHour);
+  const utcMidnight=Date.UTC(date.getFullYear(),date.getMonth(),date.getDate());
+  return new Date(utcMidnight+UT*3600000);
 }
-function fmtTime(d){return d?d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}):'—'}
-function applyTheme(mode,sunrise,sunset){
-  const now=new Date();let night;
-  if(mode==='day')night=false;
-  else if(mode==='night')night=true;
-  else if(sunrise&&sunset)night=now<sunrise||now>=sunset;
-  else{const h=now.getHours();night=h<7||h>=19}
+function fmtTime(d){
+  return d?d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}):'—';
+}
+function applyTheme(mode, sunrise, sunset){
+  const now=new Date();
+  let night;
+  if(mode==='day') night=false;
+  else if(mode==='night') night=true;
+  else if(sunrise&&sunset) night = now < sunrise || now >= sunset;
+  else {
+    const h=now.getHours(); night = h<7 || h>=19;
+  }
   document.body.classList.toggle('night',night);
   $('themeMeta').setAttribute('content',night?'#0b1020':'#f7f9ff');
   $('modeBadge').textContent=night?'Night mode':'Day mode';
-  const h=now.getHours();$('greeting').textContent=h<12?'Good morning!':h<18?'Good afternoon!':'Good evening!';
+  const h=now.getHours();
+  $('greeting').textContent=h<12?'Good morning!':h<18?'Good afternoon!':'Good evening!';
 }
 let sunCache={sunrise:null,sunset:null};
 function updateSunTheme(){
   const mode=localStorage.getItem(themeModeKey)||'auto';
   $('themeOverrideBtn').textContent=mode==='auto'?'Auto':mode==='day'?'Day':'Night';
   if(mode!=='auto'){applyTheme(mode);return}
-  if(!navigator.geolocation){$('sunInfo').textContent='Location unavailable. Using 7:00 AM / 7:00 PM fallback.';applyTheme('auto');return}
+  if(!navigator.geolocation){
+    $('sunInfo').textContent='Location unavailable. Using 7:00 AM / 7:00 PM fallback.';
+    applyTheme('auto'); return;
+  }
   navigator.geolocation.getCurrentPosition(pos=>{
-    const d=new Date(),lat=pos.coords.latitude,lon=pos.coords.longitude;
-    sunCache.sunrise=calcSunTime(d,lat,lon,true);sunCache.sunset=calcSunTime(d,lat,lon,false);
+    const d=new Date(), lat=pos.coords.latitude, lon=pos.coords.longitude;
+    sunCache.sunrise=calcSunTime(d,lat,lon,true);
+    sunCache.sunset=calcSunTime(d,lat,lon,false);
     $('sunInfo').textContent='Today: sunrise '+fmtTime(sunCache.sunrise)+' · sunset '+fmtTime(sunCache.sunset);
     applyTheme('auto',sunCache.sunrise,sunCache.sunset);
   },()=>{
@@ -272,7 +315,8 @@ function updateSunTheme(){
 $('themeOverrideBtn').onclick=()=>{
   const cur=localStorage.getItem(themeModeKey)||'auto';
   const next=cur==='auto'?'day':cur==='day'?'night':'auto';
-  localStorage.setItem(themeModeKey,next);updateSunTheme();
+  localStorage.setItem(themeModeKey,next);
+  updateSunTheme();
 };
 
 setLayout(localStorage.getItem(layoutKey)||'grid');

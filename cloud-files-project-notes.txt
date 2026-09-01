@@ -1,14 +1,25 @@
-CLOUD FILES v1.5 — FIRE HD 8 COMPACT HOME
+CLOUD FILES — FIRE HD 8 BUILD
+Version: 1.3
 Date: 2026-09-01
 
-- Home optimized to fit on one Fire HD 8 screen.
-- iCloud Drive and Local Files remain side-by-side on tablet width with large touch targets.
-- Upload/download instructions shortened to conserve vertical space.
-- Grid/List local-file display retained.
-- Automatic sunrise/sunset Day/Night mode retained.
-- No fake iCloud file/folder/storage information.
-- iCloud Drive opens Apple's actual interface.
-- Download destination remains controlled by the Fire browser.
-- Upload destination is selected by navigating to the desired iCloud folder before Upload → Choose Files.
-- Secondary app views should use a prominent Back control; Apple's iCloud page uses browser navigation because it opens externally.
-- Google Drive remains removed.
+WHAT'S NEW
+- Redesigned polished tablet-friendly UX.
+- Grid/list display toggle for recent local files.
+- Grid/list preference saved in browser localStorage.
+- Automatic day/night theme based on calculated local sunrise and sunset.
+- Location is used only inside the browser; no sunrise API or external location service is used.
+- Manual theme override cycles Auto -> Day -> Night -> Auto.
+- If location permission is unavailable, the theme falls back to 7:00 AM / 7:00 PM.
+- Recent selected-file metadata is stored locally for convenience.
+- Google Drive/OAuth/Apps Script relay remains removed.
+
+FIRE WORKFLOW
+1. Open Cloud Files in Silk.
+2. Tap Open iCloud Drive to browse/view/download/upload via Apple's iCloud website.
+3. Tap Open Local Files to select a Fire file and see it in the app.
+4. Switch recent local files between Grid and List.
+5. Allow location if you want sunrise/sunset-based day/night switching.
+
+DEPLOYMENT
+Replace index.html and privacy.html in the root of the GitHub cloud-files repository.
+Site: https://willyros01.github.io/cloud-files/
