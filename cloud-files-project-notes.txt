@@ -1,12 +1,14 @@
-CLOUD FILES v1.7.0
+CLOUD FILES v1.7.2
 Date: 2026-09-01
 
-- iCloud remains the center of the app.
-- Upload and Download remain side-by-side.
-- Download opens iCloud Drive; Apple/browser handles the download.
-- No automatic return or local-picker handoff.
-- Downloaded files are found through browser Downloads or device Downloads/Files.
-- Local Files remains a separate secondary browser/check utility.
-- Friendly time-of-day greeting restored.
-- Historical troubleshooting/build references removed from visible wording.
-- Fire HD 8 compact layout, scrolling, back buttons, typography/colors, and day/night behavior retained.
+EXPERIMENTAL RETURN RESET
+- Before opening iCloud from the Download instruction page, Cloud Files stores a return target of "downloadPage".
+- When Cloud Files regains control, it forces the app back to the Download instruction page on:
+  - page load / pageshow
+  - window focus
+  - visibility returning to visible
+- Uses both sessionStorage and localStorage for resilience.
+- Added a small Reset Download Page fallback button on the Download instruction screen.
+- iCloud still opens in a separate tab.
+- This cannot force Apple/Silk to bring the Cloud Files tab to the foreground, but if Cloud Files becomes active again, it should reset to Download automatically.
+- Version: 1.7.2.

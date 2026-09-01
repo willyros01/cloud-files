@@ -248,7 +248,7 @@ main{overflow:visible}
   line-height:1.3;color:var(--text)
 }
 
-.greeting{margin:2px 0 10px;font-size:clamp(14px,2.5vw,17px);font-weight:600;opacity:.82}
+.greeting{margin:4px 2px 12px;font-size:clamp(16px,3vw,20px);font-weight:700;opacity:1}.homeGreeting{display:block}
 .downloadNote{margin:8px 4px 2px;font-size:12px;line-height:1.35;opacity:.72}
 </style>
 </head>
@@ -264,10 +264,11 @@ main{overflow:visible}
 
 <main>
 <section id="homePage" class="page active">
+<p class="greeting homeGreeting" id="greeting">Welcome to Cloud Files</p>
+
   <div class="homeIntro">
     <h1>iCloud File Utility</h1>
-<p class="greeting" id="greeting">Welcome to Cloud Files</p>
-    <p>Upload and download through iCloud Drive. Local Files is only a supporting browser.</p>
+<p>Upload and download through iCloud Drive. Local Files is only a supporting browser.</p>
   </div>
 
   <div class="icloudPrimary">
@@ -279,7 +280,7 @@ main{overflow:visible}
       <p class="explain"><strong>Use iCloud Drive to upload and download your files.</strong></p>
       <div class="icloudActions">
         <button class="icloudAction" data-page="uploadPage"><span class="actionIcon">⬆️</span><span>Upload</span></button>
-        <button class="icloudAction" id="directDownloadIcloud"><span class="actionIcon">⬇️</span><span>Download</span></button>
+        <button class="icloudAction" data-page="downloadPage"><span class="actionIcon">⬇️</span><span>Download</span></button>
       </div>
 <p class="downloadNote">After downloading, find your file in the browser Downloads area or your device Downloads/Files area.</p>
     </div>
@@ -291,7 +292,7 @@ main{overflow:visible}
     <span class="chev">›</span>
   </button>
 
-  <div class="version">Cloud Files v1.7.0</div>
+  <div class="version">Cloud Files v1.7.2</div>
 </section>
 
 <section id="uploadPage" class="page">
@@ -313,9 +314,30 @@ main{overflow:visible}
     <button class="primaryBtn transferOpen" id="openUploadIcloud">Open iCloud Drive</button>
     <p class="externalNote">iCloud opens in a separate Silk tab so Cloud Files stays open. Switch back to the Cloud Files tab when finished.</p>
   </div>
-  <div class="version">Cloud Files v1.7.0</div>
+  <div class="version">Cloud Files v1.7.2</div>
 </section>
 
+
+
+<section id="downloadPage" class="page">
+  <div class="pageHead">
+    <button class="backBtn" data-page="homePage">← Back</button>
+    <h2>Download from iCloud</h2>
+  </div>
+  <div class="guideCard">
+    <div class="guideIcon">⬇️</div>
+    <h3>Download a file to this device</h3>
+    <ol class="steps">
+      <li>Tap <strong>Open iCloud Drive</strong> below.</li>
+      <li>Find the file you want to download.</li>
+      <li>Select the file, then use Apple’s <strong>Download</strong> control.</li>
+      <li>After the download, find the file in your browser’s <strong>Downloads</strong> area or the device <strong>Downloads / Files</strong> area.</li>
+    </ol>
+    <p class="smallNote">Cloud Files does not control the screen shown after Apple completes the download.</p>
+    <button class="primaryBtn icloudBtn" id="openDownloadIcloud">Open iCloud Drive</button>
+    <button class="secondaryBtn" id="resetDownloadPage" type="button">Reset Download Page</button>
+  </div>
+</section>
 
 <section id="localPage" class="page">
   <div class="pageHeader"><button class="backBtn" data-page="homePage">‹ Back</button><h2>Local Files</h2></div>
@@ -328,7 +350,7 @@ main{overflow:visible}
     </div>
     <div id="fileArea" class="fileArea grid"></div>
   </div>
-  <div class="version">Cloud Files v1.7.0</div>
+  <div class="version">Cloud Files v1.7.2</div>
 </section>
 
 
@@ -336,7 +358,7 @@ main{overflow:visible}
   <div class="pageHeader"><button class="backBtn" data-page="homePage">‹ Back</button><h2>About</h2></div>
   <div class="contentCard center">
     <div class="pageIcon">☁️</div><h3>Cloud Files</h3>
-    <p><strong>Version 1.7.0</strong></p>
+    <p><strong>Version 1.7.2</strong></p>
     <p>Simple access to iCloud Drive and Fire local files.</p>
     <p id="sunInfo">Automatic day/night mode uses local sunrise and sunset when location permission is available.</p>
     <p><a href="privacy.html">Privacy Policy</a></p>
@@ -364,9 +386,6 @@ document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',(
 
 
 $('openUploadIcloud').onclick=()=>{
-  window.open('https://www.icloud.com/iclouddrive/','_blank');
-};
-$('directDownloadIcloud').onclick=()=>{
   window.open('https://www.icloud.com/iclouddrive/','_blank');
 };
 function esc(t){const d=document.createElement('div');d.textContent=String(t);return d.innerHTML}
@@ -441,6 +460,47 @@ function updateGreeting(){
   el.textContent=part+' — welcome to Cloud Files';
 }
 updateGreeting();
+window.addEventListener('pageshow',updateGreeting);
+
+const downloadOpen=document.getElementById('openDownloadIcloud');
+if(downloadOpen){
+  downloadOpen.onclick=()=>{
+    try{
+      sessionStorage.setItem('cloudFilesReturnPage','downloadPage');
+      localStorage.setItem('cloudFilesReturnPage','downloadPage');
+    }catch(e){}
+    window.open('https://www.icloud.com/iclouddrive/','_blank');
+  };
+}
+
+function restoreCloudFilesReturnPage(){
+  let target=null;
+  try{
+    target=sessionStorage.getItem('cloudFilesReturnPage') || localStorage.getItem('cloudFilesReturnPage');
+  }catch(e){}
+  if(target==='downloadPage'){
+    try{ showPage('downloadPage'); }catch(e){}
+  }
+}
+
+window.addEventListener('pageshow', restoreCloudFilesReturnPage);
+window.addEventListener('focus', restoreCloudFilesReturnPage);
+document.addEventListener('visibilitychange', ()=>{
+  if(document.visibilityState==='visible') restoreCloudFilesReturnPage();
+});
+setTimeout(restoreCloudFilesReturnPage, 0);
+
+
+const resetDownloadPage=document.getElementById('resetDownloadPage');
+if(resetDownloadPage){
+  resetDownloadPage.onclick=()=>{
+    try{
+      sessionStorage.setItem('cloudFilesReturnPage','downloadPage');
+      localStorage.setItem('cloudFilesReturnPage','downloadPage');
+    }catch(e){}
+    showPage('downloadPage');
+  };
+}
 </script>
 </body>
 </html>
