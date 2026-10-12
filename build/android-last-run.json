@@ -1,10 +1,10 @@
 {
   "workflow": "Cloud Files Android APK test build",
   "branch": "android",
-  "run_id": 38312676901,
+  "run_id": 38312727937,
   "run_attempt": "1",
-  "run_url": "https://github.com/willyros01/cloud-files/actions/runs/38312676901",
-  "source_sha": "d4ccfd5e54f0cac72064767cd2bbca251300f5e5",
+  "run_url": "https://github.com/willyros01/cloud-files/actions/runs/38312727937",
+  "source_sha": "2c542284b1a3351fa523614a5d2f9ee041d454df",
   "outcome": "failure",
   "artifact_name": null,
   "publication": {
@@ -12,8 +12,13 @@
     "state": "not-requested",
     "mechanism": "Cuberoot publisher polls this verified build report"
   },
-  "reported_at": "2026-10-12T21:46:20.290Z",
+  "reported_at": "2026-10-12T21:47:09.564Z",
   "jobs": [
+    {
+      "name": "Android adapter and launcher checks",
+      "conclusion": "success",
+      "failed_steps": []
+    },
     {
       "name": "apk",
       "conclusion": "failure",
