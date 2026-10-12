@@ -61,6 +61,13 @@ async function main(){
   assert(java.includes('Intent.CATEGORY_BROWSABLE'));
   assert(java.includes('https://www.icloud.com/iclouddrive/'));
   assert(!java.includes('WebView.loadUrl'));
-  console.log('PASS: Native opens fixed Apple URL via external Android Intent');
+  // Fire HD 8 / Android package visibility: resolveActivity may falsely return null
+  // for Silk, even though startActivity successfully launches the browser.
+  const nativeSource = java.slice(java.indexOf('public void openICloud(PluginCall call)'), java.indexOf('} catch (ActivityNotFoundException'));
+  assert(nativeSource.includes('getContext().startActivity(browser)'), 'must launch browser directly');
+  assert(!/\\.resolveActivity\\s*\\(/.test(nativeSource), 'must not preflight package query before launch');
+  assert(!nativeSource.includes('getPackageManager()'), 'must not use package manager browser lookup');
+  assert(java.includes('catch (ActivityNotFoundException e)'), 'real absent-browser exception must be handled');
+  console.log('PASS: Fire OS launches external browser without package-visibility false negative');
 }
 main().catch(e=>{console.error(e);process.exitCode=1;});
