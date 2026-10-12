@@ -65,7 +65,7 @@ async function main(){
   // for Silk, even though startActivity successfully launches the browser.
   const nativeSource = java.slice(java.indexOf('public void openICloud(PluginCall call)'), java.indexOf('} catch (ActivityNotFoundException'));
   assert(nativeSource.includes('getContext().startActivity(browser)'), 'must launch browser directly');
-  assert(!/\\.resolveActivity\\s*\\(/.test(nativeSource), 'must not preflight package query before launch');
+  assert(!nativeSource.includes('.resolveActivity('), 'must not preflight package query before launch');
   assert(!nativeSource.includes('getPackageManager()'), 'must not use package manager browser lookup');
   assert(java.includes('catch (ActivityNotFoundException e)'), 'real absent-browser exception must be handled');
   console.log('PASS: Fire OS launches external browser without package-visibility false negative');
