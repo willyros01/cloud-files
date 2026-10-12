@@ -1,0 +1,17 @@
+{
+  "name": "cloud-files-android",
+  "version": "1.7.3",
+  "private": true,
+  "description": "Cloud Files — Android Fire OS client for iCloud Drive and device local files",
+  "scripts": {
+    "test:android": "node build/test-android.cjs",
+    "build:android": "bash build/android-build.sh"
+  },
+  "dependencies": {
+    "@capacitor/core": "^8.0.0",
+    "@capacitor/android": "^8.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.0.0"
+  }
+}
