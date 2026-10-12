@@ -34,10 +34,10 @@ public class CloudFilesLinksPlugin extends Plugin {
       Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.icloud.com/iclouddrive/"));
       browser.addCategory(Intent.CATEGORY_BROWSABLE);
       browser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      if (browser.resolveActivity(getContext().getPackageManager()) == null) {
-        call.reject("No external browser is installed");
-        return;
-      }
+      // Android 11+ package visibility can make resolveActivity() return null
+      // even when Amazon Silk is installed and can handle this HTTPS intent.
+      // Launch directly: Android itself resolves the activity, and only a real
+      // ActivityNotFoundException means there is no browser handler.
       getContext().startActivity(browser);
       call.resolve(new JSObject());
     } catch (ActivityNotFoundException e) {
