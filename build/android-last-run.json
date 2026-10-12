@@ -1,0 +1,25 @@
+{
+  "workflow": "Cloud Files Android APK test build",
+  "branch": "android",
+  "run_id": 38312301949,
+  "run_attempt": "1",
+  "run_url": "https://github.com/willyros01/cloud-files/actions/runs/38312301949",
+  "source_sha": "033cc4e34dadcc29b7cc6b6df16eebf9a1cec90e",
+  "outcome": "failure",
+  "artifact_name": null,
+  "publication": {
+    "destination": "https://www.cuberoot-systems.com/downloads/cloud-files.apk",
+    "state": "not-requested",
+    "mechanism": "Cuberoot publisher polls this verified build report"
+  },
+  "reported_at": "2026-10-12T21:42:43.420Z",
+  "jobs": [
+    {
+      "name": "apk",
+      "conclusion": "failure",
+      "failed_steps": [
+        "Require permanent Android signing secrets"
+      ]
+    }
+  ]
+}
