@@ -43,7 +43,10 @@ Date: 2026-10-12. Source app: Cloud Files v1.7.3.
 6. Upgrade via later APK signed with the same key IN PLACE; verify preferences still present. Do not uninstall solely to update.
 7. Check Cuberoot APK build metadata matches the successful workflow and fingerprint. Never claim device functionality from source alone.
 
-## Status
-- Cuberoot web listing and snapshot created.
-- Android branch and native adapter, tests, build workflow and automatic publisher source prepared.
-- A signed APK and Fire-device acceptance have NOT yet been verified. The new repository secrets must be saved by the user before a successful signed build.
+## Status and real device findings
+- Unique permanent signing secrets are configured on GitHub and Android signed build 38312727937 PASSED; publisher 38313951860 and Cuberoot Pages deploy 38313972699 PASSED.
+- Cuberoot Cloud Files app listing has a description and APK download, but **NO web app Open link**. The public large-print Quick Start Guide is registered under `guides/index.json` at `guides/cloud-files/quick-start.html`.
+- **Fire HD 8 acceptance FAIL (reported 2026-10-12):** Cloud Files Upload/Download → Open iCloud Drive shows “Could not open iCloud Drive in Fire browser: No external browser is installed,” despite Fire tablet having Silk.
+- Root cause in Android bridge: calling `Intent.resolveActivity(getPackageManager())` before `startActivity`. Modern Android package visibility can return null for available apps when no `<queries>` manifest declaration is present. That is NOT a reliable test of whether Silk can handle the HTTPS link.
+- **Fix in `build/android-native.sh`:** remove preflight query, directly dispatch fixed iCloud HTTPS `Intent.ACTION_VIEW` to OS; catch actual `ActivityNotFoundException` if no handler. Do not intercept Apple sign-in in Cloud Files. `build/test-android.cjs` asserts absence of query and presence of direct startActivity + exception handler.
+- Pending: new signed build → matching exact Cuberoot publication → install APK over current Cloud Files (same key; never uninstall) → Fire HD 8 test confirming both Upload and Download launch Silk and return to app.
