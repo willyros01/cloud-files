@@ -50,3 +50,10 @@ Date: 2026-10-12. Source app: Cloud Files v1.7.3.
 - Root cause in Android bridge: calling `Intent.resolveActivity(getPackageManager())` before `startActivity`. Modern Android package visibility can return null for available apps when no `<queries>` manifest declaration is present. That is NOT a reliable test of whether Silk can handle the HTTPS link.
 - **Fix in `build/android-native.sh`:** remove preflight query, directly dispatch fixed iCloud HTTPS `Intent.ACTION_VIEW` to OS; catch actual `ActivityNotFoundException` if no handler. Do not intercept Apple sign-in in Cloud Files. `build/test-android.cjs` asserts absence of query and presence of direct startActivity + exception handler.
 - Pending: new signed build → matching exact Cuberoot publication → install APK over current Cloud Files (same key; never uninstall) → Fire HD 8 test confirming both Upload and Download launch Silk and return to app.
+
+## Fire HD 8 browser launch repair release — 2026-10-12
+- Android source fix to remove unreliable `resolveActivity` preflight (Android 11+ package visibility); direct `startActivity(ACTION_VIEW, https://www.icloud.com/iclouddrive/)` with real `ActivityNotFoundException` handling.
+- Test correction required after initial test syntax failure; final GitHub Actions Android run `38314654572` PASSED: adapter tests, APK compilation, APK signature verification, upload and report.
+- Signed APK sha256 `8061eb092bdd0746c2b6054047e7c0657ee87d28cf5ec1c5736bbeb641f48e6e`; certificate SHA256 `4ac4eb9b55e91582b0b02820498e1f6ee7208a4d63eca73a2c1bf68c766002ea` MATCHES prior released APK.
+- Cuberoot publisher run `38314899363` PASS; published build metadata identifies exact APK artifact and matching hashes; GitHub Pages deploy `38314929156` PASS.
+- Device-level proof NOT yet complete: on Fire HD 8 install site APK `?build=38314654572` **over the existing installation** (NO uninstall), verify iCloud Upload and Download now open Silk; verify Local Files and theme prefs remain.
