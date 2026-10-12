@@ -23,7 +23,35 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  check:
+    name: Android adapter and launcher checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Check Android adapter and full JavaScript syntax
+        run: node build/test-android.cjs
+      - name: Generate and verify Android launcher resources
+        run: |
+          java build/AndroidIcons.java "$RUNNER_TEMP/cloudfiles-icons"
+          test -s "$RUNNER_TEMP/cloudfiles-icons/mipmap-mdpi/ic_launcher.png"
+          test -s "$RUNNER_TEMP/cloudfiles-icons/mipmap-xxxhdpi/ic_launcher_foreground.png"
+          test -s "$RUNNER_TEMP/cloudfiles-icons/mipmap-anydpi-v26/ic_launcher.xml"
+      - name: Check build script syntax
+        run: |
+          bash -n build/android-build.sh
+          bash -n build/android-native.sh
+          bash -n build/android-sign.sh
+
   apk:
+    needs: [check]
     runs-on: ubuntu-latest
     timeout-minutes: 35
     env:
