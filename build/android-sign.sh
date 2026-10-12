@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Persistent Android APK signing for the isolated Fairpot/android branch.
+# Persistent Android APK signing for the isolated cloud-files/android branch.
 # Secrets MUST be supplied by GitHub Actions. No fallback to a new debug key.
 set -euo pipefail
 umask 077
