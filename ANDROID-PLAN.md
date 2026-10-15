@@ -1,3 +1,12 @@
+## Cloud Files Fire OS device result — 2026-10-15 current snapshot
+
+**Accepted on physical Fire HD 8 (owner-confirmed 12 Oct):** after installing signed Android build **38314654572** in place, both **Upload → Open iCloud Drive** and **Download → Open iCloud Drive** launched Apple's iCloud Drive in the external Silk browser. The earlier false “No external browser is installed” message was resolved by directly starting the Android VIEW intent rather than relying on `resolveActivity` package visibility. Build, signer verification, Cuberoot publisher **38314899363** and Pages **38314929156** passed as recorded below.
+
+**Not established:** an actual successful iCloud upload/download, local Files picker content and metadata, all persistence/settings cases, future APK upgrade acceptance or any App Store/Play release. Do not turn source/build evidence into a device PASS. Native work remains confined to `android`; original `main` web and the private signing key are protected. Preserve the same signing certificate, avoid uninstalling an in-use app, and do not begin another build without explicit owner authorization. This is documentation only.
+
+---
+
+
 # Cloud Files Android / Fire HD 8 — Development and release record
 Date: 2026-10-12. Source app: Cloud Files v1.7.3.
 
