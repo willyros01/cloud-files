@@ -1,1 +1,3 @@
-# cloud-files
+# Cloud Files — Fire HD 8 Android
+
+**Current documentation (2026-10-15):** This is the isolated `android` branch. Signed build **38314654572** and Cuberoot publication passed. Owner physically confirmed on Fire HD 8 that **Upload** and **Download** each open iCloud Drive in external **Silk** successfully after the Android intent repair. Actual transfer completion, local Files picker behavior and additional settings persistence are separately **UNTESTED**; see `ANDROID-PLAN.md`. `main` retains the original web baseline. Signing, application code and builds remain frozen absent explicit approval.
